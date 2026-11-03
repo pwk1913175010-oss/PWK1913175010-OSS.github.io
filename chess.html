@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>国际象棋 · iss 游戏库</title>
+<script src="chess.js"></script>
+<style>
+  body { margin: 0; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: linear-gradient(160deg, #ffe3ef, #e6dcff); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 24px 12px; }
+  h1 { font-size: 28px; margin: 0 0 4px; color: #5e35b1; }
+  .subtitle { color: #7b5ea7; font-size: 14px; margin: 0 0 16px; }
+  .back { color: #7b5ea7; text-decoration: none; font-size: 14px; margin-bottom: 12px; }
+  .panel { background: rgba(255,255,255,.85); border-radius: 24px; padding: 16px; box-shadow: 0 8px 24px rgba(94,53,177,.15); display: flex; flex-direction: column; align-items: center; }
+  .board { display: grid; grid-template-columns: repeat(8, 1fr); width: min(92vw, 520px); border-radius: 12px; overflow: hidden; }
+  .cell { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; font-size: clamp(26px, 9.5vw, 46px); line-height: 1; position: relative; }
+  .cell.light { background: #f3edff; }
+  .cell.dark { background: #b39ddb; }
+  .cell.selected { outline: 4px solid #ff8fab; outline-offset: -4px; }
+  .cell.lastmove { background: #ffe3a3 !important; }
+  .cell .dot { position: absolute; width: 26%; height: 26%; border-radius: 50%; background: rgba(255,93,143,.55); pointer-events: none; }
+  .cell .ring { position: absolute; inset: 4%; border-radius: 50%; border: 4px solid rgba(255,93,143,.7); pointer-events: none; }
+  .piece-w { color: #fff; text-shadow: -1px -1px 0 #333, 1px -1px 0 #333, -1px 1px 0 #333, 1px 1px 0 #333; }
+  .piece-b { color: #222; }
+  .controls { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; justify-content: center; }
+  .controls button { border: none; border-radius: 20px; background: #f3e8ff; color: #5e35b1; padding: 8px 16px; cursor: pointer; font-size: 14px; }
+  .controls button.active { background: #7b5ea7; color: #fff; }
+  .status { margin-top: 14px; font-size: 16px; color: #5e35b1; min-height: 24px; }
+  .captured { margin-top: 6px; font-size: 20px; min-height: 28px; }
+  .hint { margin-top: 8px; font-size: 13px; color: #b39ddb; }
+</style>
+</head>
+<body>
+<a class="back" href="games.html">← 回游戏库</a>
+<h1>♟️ 国际象棋</h1>
+<p class="subtitle">你执白棋，对手是电脑 · by iss</p>
+<div class="panel">
+  <div class="board" id="board"></div>
+  <div class="controls">
+    <button data-diff="easy">简单</button>
+    <button data-diff="medium" class="active">中等</button>
+    <button data-diff="hard">困难</button>
+    <button id="undoBtn">悔棋</button>
+    <button id="restartBtn">重新开始</button>
+  </div>
+</div>
+<div class="status" id="status">轮到你走（白棋）。</div>
+<div class="captured" id="captured"></div>
+<div class="hint">点自己的棋子选中，再点有点的格子走棋。升变自动升后。</div>
+<script>
+const PIECES = {
+  w: { k: '♔', q: '♕', r: '♖', b: '♗', n: '♘', p: '♙' },
+  b: { k: '♚', q: '♛', r: '♜', b: '♝', n: '♞', p: '♟' }
+};
+const VALUES = { p: 100, n: 320, b: 330, r: 500, q: 900, k: 20000 };
+const DEPTHS = { easy: 1, medium: 2, hard: 3 };
+let game = new Chess();
+let selected = null, selectedMoves = [];
+let thinking = false, difficulty = 'medium', lastMove = null;
+const boardEl = document.getElementById('board');
+const statusEl = document.getElementById('status');
+const capturedEl = document.getElementById('captured');
+
+function squareName(row, col) { return 'abcdefgh'[col] + (8 - row); }
+function render() {
+  const pos = game.board();
+  boardEl.innerHTML = '';
+  for (let row = 0; row < 8; row++) for (let col = 0; col < 8; col++) {
+    const sq = squareName(row, col);
+    const cell = document.createElement('div');
+    cell.className = 'cell ' + (((row + col) % 2 === 0) ? 'light' : 'dark');
+    cell.dataset.square = sq;
+    if (lastMove && (lastMove.from === sq || lastMove.to === sq)) cell.classList.add('lastmove');
+    if (selected === sq) cell.classList.add('selected');
+    const piece = pos[row][col];
+    if (piece) {
+      const span = document.createElement('span');
+      span.className = piece.color === 'w' ? 'piece-w' : 'piece-b';
+      span.textContent = PIECES[piece.color][piece.type];
+      cell.appendChild(span);
+    }
+    const mv = selectedMoves.find(m => m.to === sq);
+    if (mv) {
+      const mark = document.createElement('div');
+      mark.className = mv.captured ? 'ring' : 'dot';
+      cell.appendChild(mark);
+    }
+    cell.addEventListener('click', () => onCellClick(sq));
+    boardEl.appendChild(cell);
+  }
+  updateCaptured();
+}
+function updateCaptured() {
+  const start = { p: 8, n: 2, b: 2, r: 2, q: 1, k: 1 };
+  const count = { w: { p: 0, n: 0, b: 0, r: 0, q: 0, k: 0 }, b: { p: 0, n: 0, b: 0, r: 0, q: 0, k: 0 } };
+  game.board().forEach(row => row.forEach(sq => { if (sq) count[sq.color][sq.type]++; }));
+  let byWhite = '', byBlack = '';
+  Object.keys(start).forEach(t => {
+    const lostBlack = start[t] - count.b[t];
+    const lostWhite = start[t] - count.w[t];
+    for (let i = 0; i < lostBlack; i++) byWhite += PIECES.b[t];
+    for (let i = 0; i < lostWhite; i++) byBlack += PIECES.w[t];
+  });
+  capturedEl.textContent = (byWhite ? '你吃掉：' + byWhite + '  ' : '') + (byBlack ? '电脑吃掉：' + byBlack : '');
+}
+function updateStatus() {
+  if (game.in_checkmate()) {
+    statusEl.textContent = game.turn() === 'b' ? '🎉 你赢了！将死电脑。' : '😢 电脑赢了，你被将死了。';
+    return;
+  }
+  if (game.in_stalemate()) { statusEl.textContent = '和棋：逼和。'; return; }
+  if (game.in_draw()) { statusEl.textContent = '和棋。'; return; }
+  if (thinking) { statusEl.textContent = '电脑思考中…'; return; }
+  statusEl.textContent = (game.in_check() ? '将军！' : '') + '轮到你走（白棋）。';
+}
+function clearSelection() { selected = null; selectedMoves = []; }
+function onCellClick(sq) {
+  if (thinking || game.game_over() || game.turn() !== 'w') return;
+  const mv = selectedMoves.find(m => m.to === sq);
+  if (mv && selected) {
+    const move = game.move({ from: selected, to: sq, promotion: 'q' });
+    if (move) {
+      lastMove = move; clearSelection(); render(); updateStatus();
+      if (!game.game_over()) {
+        thinking = true; updateStatus();
+        setTimeout(computerMove, 400);
+      }
+    }
+    return;
+  }
+  const moves = game.moves({ square: sq, verbose: true });
+  const ownPiece = moves.length > 0;
+  if (ownPiece) { selected = sq; selectedMoves = moves; render(); }
+  else { clearSelection(); render(); }
+}
+function evaluate() {
+  let score = 0;
+  game.board().forEach(row => row.forEach(sq => {
+    if (sq) score += (sq.color === 'w' ? 1 : -1) * VALUES[sq.type];
+  }));
+  return score;
+}
+function minimax(depth, alpha, beta, maximizing) {
+  if (depth === 0 || game.game_over()) {
+    if (game.in_checkmate()) return maximizing ? -99999 : 99999;
+    if (game.in_draw() || game.in_stalemate()) return 0;
+    return evaluate();
+  }
+  const moves = game.moves({ verbose: true });
+  moves.sort((a, b) => (b.captured ? 1 : 0) - (a.captured ? 1 : 0));
+  if (maximizing) {
+    let best = -Infinity;
+    for (const m of moves) {
+      game.move(m);
+      const s = minimax(depth - 1, alpha, beta, false);
+      game.undo();
+      if (s > best) best = s;
+      if (s > alpha) alpha = s;
+      if (beta <= alpha) break;
+    }
+    return best;
+  }
+  let best = Infinity;
+  for (const m of moves) {
+    game.move(m);
+    const s = minimax(depth - 1, alpha, beta, true);
+    game.undo();
+    if (s < best) best = s;
+    if (s < beta) beta = s;
+    if (beta <= alpha) break;
+  }
+  return best;
+}
+function computerMove() {
+  const moves = game.moves({ verbose: true });
+  if (moves.length === 0) { thinking = false; render(); updateStatus(); return; }
+  let chosen;
+  if (difficulty === 'easy' && Math.random() < 0.4) {
+    chosen = moves[Math.floor(Math.random() * moves.length)];
+  } else {
+    const depth = DEPTHS[difficulty];
+    let bestScore = Infinity;
+    let bestMoves = [];
+    moves.forEach(m => {
+      game.move(m);
+      const s = minimax(depth - 1, -Infinity, Infinity, true);
+      game.undo();
+      if (s < bestScore) { bestScore = s; bestMoves = [m]; }
+      else if (s === bestScore) { bestMoves.push(m); }
+    });
+    chosen = bestMoves[Math.floor(Math.random() * bestMoves.length)];
+  }
+  const move = game.move(chosen);
+  lastMove = move;
+  thinking = false;
+  render(); updateStatus();
+}
+document.querySelectorAll('.controls button[data-diff]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.controls button[data-diff]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    difficulty = btn.dataset.diff;
+  });
+});
+document.getElementById('undoBtn').addEventListener('click', () => {
+  if (thinking) return;
+  if (game.history().length === 0) return;
+  game.undo();
+  if (game.turn() === 'b' && game.history().length > 0) game.undo();
+  lastMove = null; clearSelection(); render(); updateStatus();
+});
+document.getElementById('restartBtn').addEventListener('click', () => {
+  game = new Chess();
+  lastMove = null; thinking = false; clearSelection(); render(); updateStatus();
+});
+render(); updateStatus();
+</script>
+</body>
+</html>
