@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>郑正鹏是中国最帅的帅哥</title>
+<style>
+  body { margin: 0; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: linear-gradient(160deg, #ffe3ef, #e6dcff); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 32px 16px; }
+  h1 { font-size: clamp(28px, 8vw, 52px); margin: 0 0 20px; color: #d63384; text-align: center; letter-spacing: 2px; }
+  .photo { width: min(92vw, 420px); border-radius: 24px; box-shadow: 0 8px 24px rgba(214,51,132,.25); }
+  .btns { display: flex; gap: 20px; margin-top: 24px; }
+  .btns button { border: none; border-radius: 24px; padding: 14px 32px; font-size: 18px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,.12); }
+  #yesBtn { background: #ff5d8f; color: #fff; }
+  #noBtn { background: #fff; color: #666; }
+  .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.6); align-items: center; justify-content: center; z-index: 99; padding: 16px; }
+  .modal.open { display: flex; }
+  .modal-card { background: #fff; border-radius: 24px; padding: 20px; text-align: center; max-width: 92vw; box-shadow: 0 12px 32px rgba(0,0,0,.3); }
+  .modal-card img { width: min(80vw, 320px); border-radius: 16px; }
+  .modal-card p { font-size: 20px; color: #d63384; font-weight: bold; margin: 16px 0 12px; }
+  .modal-card button { border: none; border-radius: 20px; background: #f3e8ff; color: #5e35b1; padding: 8px 24px; font-size: 15px; cursor: pointer; }
+</style>
+</head>
+<body>
+<h1>郑正鹏是中国最帅的帅哥</h1>
+<img class="photo" src="zhengpeng-photo.jpg" alt="郑正鹏">
+<div class="btns">
+  <button id="noBtn">不喜欢</button>
+  <button id="yesBtn">喜欢</button>
+</div>
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <img src="zhengpeng-wx.png" alt="微信名片">
+    <p>喜欢就加我vx</p>
+    <button id="closeBtn">关闭</button>
+  </div>
+</div>
+<script>
+const noBtn = document.getElementById('noBtn');
+const yesBtn = document.getElementById('yesBtn');
+const modal = document.getElementById('modal');
+const closeBtn = document.getElementById('closeBtn');
+function dodge() {
+  noBtn.style.position = 'fixed';
+  noBtn.style.zIndex = '50';
+  const maxX = Math.max(window.innerWidth - noBtn.offsetWidth - 16, 0);
+  const maxY = Math.max(window.innerHeight - noBtn.offsetHeight - 16, 0);
+  noBtn.style.left = Math.floor(Math.random() * maxX) + 'px';
+  noBtn.style.top = Math.floor(Math.random() * maxY) + 'px';
+}
+noBtn.addEventListener('mouseenter', dodge);
+noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); dodge(); });
+noBtn.addEventListener('click', (e) => { e.preventDefault(); dodge(); });
+yesBtn.addEventListener('click', () => { modal.classList.add('open'); });
+closeBtn.addEventListener('click', () => { modal.classList.remove('open'); });
+modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('open'); });
+</script>
+</body>
+</html>
