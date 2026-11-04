@@ -23,6 +23,13 @@
   .n5 { color: #ff7b54; } .n6 { color: #00b8a9; } .n7 { color: #ff5d8f; } .n8 { color: #9a8c98; }
   .status { margin-top: 14px; font-size: 15px; color: #7b5ea7; }
   .hint { margin-top: 6px; font-size: 13px; color: #b39ddb; }
+  .fw-overlay { position: fixed; inset: 0; background: rgba(30, 16, 48, .72); display: none; align-items: center; justify-content: center; z-index: 99; }
+  .fw-overlay.open { display: flex; }
+  .fw-overlay canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .fw-card { position: relative; text-align: center; background: linear-gradient(160deg, #fff0f3, #f3e8ff); border-radius: 28px; padding: 32px 28px; box-shadow: 0 16px 48px rgba(0,0,0,.35); max-width: 86vw; }
+  .fw-title { font-size: 30px; font-weight: bold; color: #d63384; margin-bottom: 12px; }
+  .fw-sub { font-size: 17px; color: #7b5ea7; margin-bottom: 20px; line-height: 1.6; }
+  .fw-close { border: none; border-radius: 20px; background: #ff8fab; color: #fff; padding: 10px 24px; font-size: 16px; cursor: pointer; }
 </style>
 </head>
 <body>
@@ -44,6 +51,14 @@
 </div>
 <div class="status" id="status">点一个格子开始，左键挖开，右键插旗。</div>
 <div class="hint">手机上没有右键，可以打开“插旗”开关再点格子插旗。</div>
+<div class="fw-overlay" id="fwOverlay">
+  <canvas id="fwCanvas"></canvas>
+  <div class="fw-card">
+    <div class="fw-title">🎆 恭喜iss通关！</div>
+    <div class="fw-sub">凭截图可找坏孩子领取一个主人</div>
+    <button class="fw-close" id="fwClose">收下啦 💕</button>
+  </div>
+</div>
 <script>
 const DIFFS = {
   easy:   { rows: 9,  cols: 9,  mines: 10 },
@@ -69,6 +84,7 @@ function neighbors(r, c) {
   return out;
 }
 function newGame() {
+  if (typeof hideFireworks === 'function') hideFireworks();
   const d = DIFFS[diff];
   rows = d.rows; cols = d.cols; mineTotal = d.mines;
   board = [];
@@ -193,7 +209,66 @@ function win() {
   }
   flagsUsed = mineTotal;
   mineEl.textContent = '000';
+  if (diff === 'hard') showFireworks();
 }
+// 第三关（高级）通关烟花
+const fwOverlay = document.getElementById('fwOverlay');
+const fwCanvas = document.getElementById('fwCanvas');
+const fwCtx = fwCanvas.getContext('2d');
+let fwRAF = null, fwRockets = [], fwSparks = [], fwRunning = false;
+const FW_COLORS = ['#ff8fab', '#b388ff', '#ffd166', '#6bcb77', '#4d96ff', '#ff5d8f', '#ff9eaa'];
+function fwResize() {
+  fwCanvas.width = window.innerWidth;
+  fwCanvas.height = window.innerHeight;
+}
+function fwLaunch() {
+  const x = Math.random() * fwCanvas.width * 0.8 + fwCanvas.width * 0.1;
+  fwRockets.push({ x, y: fwCanvas.height, vy: -(10 + Math.random() * 4), color: FW_COLORS[Math.floor(Math.random() * FW_COLORS.length)] });
+}
+function fwExplode(x, y, color) {
+  const n = 60 + Math.floor(Math.random() * 40);
+  for (let i = 0; i < n; i++) {
+    const a = Math.random() * Math.PI * 2, sp = 1 + Math.random() * 5;
+    fwSparks.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: 1, color });
+  }
+}
+function fwTick() {
+  if (!fwRunning) return;
+  fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
+  if (Math.random() < 0.06) fwLaunch();
+  fwRockets = fwRockets.filter(r => {
+    r.y += r.vy; r.vy += 0.12;
+    fwCtx.fillStyle = r.color;
+    fwCtx.beginPath(); fwCtx.arc(r.x, r.y, 3, 0, Math.PI * 2); fwCtx.fill();
+    if (r.vy >= 0) { fwExplode(r.x, r.y, r.color); return false; }
+    return true;
+  });
+  fwSparks = fwSparks.filter(s => {
+    s.x += s.vx; s.y += s.vy; s.vy += 0.05; s.vx *= 0.985; s.vy *= 0.985; s.life -= 0.012;
+    if (s.life <= 0) return false;
+    fwCtx.globalAlpha = Math.max(s.life, 0);
+    fwCtx.fillStyle = s.color;
+    fwCtx.beginPath(); fwCtx.arc(s.x, s.y, 2.5, 0, Math.PI * 2); fwCtx.fill();
+    fwCtx.globalAlpha = 1;
+    return true;
+  });
+  fwRAF = requestAnimationFrame(fwTick);
+}
+function showFireworks() {
+  fwResize();
+  fwOverlay.classList.add('open');
+  fwRockets = []; fwSparks = [];
+  fwRunning = true;
+  for (let i = 0; i < 3; i++) setTimeout(fwLaunch, i * 250);
+  fwTick();
+}
+function hideFireworks() {
+  fwRunning = false;
+  cancelAnimationFrame(fwRAF);
+  fwOverlay.classList.remove('open');
+}
+document.getElementById('fwClose').addEventListener('click', hideFireworks);
+window.addEventListener('resize', fwResize);
 faceEl.addEventListener('click', newGame);
 flagBtn.addEventListener('click', () => {
   flagMode = !flagMode;
