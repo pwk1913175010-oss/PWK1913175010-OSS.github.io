@@ -3,13 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>聊天机器人 - pwkdrive</title>
+<title>坏孩子 - 聊天机器人</title>
 <style>
-body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;margin:0;background:#f6f7f9;color:#222}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;margin:0;background:#0f1115;color:#222}
 .wrap{max-width:760px;margin:0 auto;padding:20px 16px 40px}
-h1{font-size:22px;margin:8px 0 4px}
-.sub{color:#666;font-size:14px;margin:0 0 16px}
-.card{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:16px}
+.header{display:flex;align-items:center;gap:14px;background:#1a1d24;border:1px solid #2a2f3a;border-radius:20px;padding:16px;color:#fff}
+.header img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid #ff7a1a}
+.header h1{font-size:22px;margin:0}
+.header p{margin:4px 0 0;color:#9aa3b2;font-size:14px}
+.dot{display:inline-block;width:8px;height:8px;background:#22c55e;border-radius:50%;margin-right:6px}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:16px;margin-top:16px}
 .row{display:flex;gap:8px;flex-wrap:wrap}
 input,select,button{font-size:15px;padding:10px 12px;border-radius:10px;border:1px solid #cbd5e1}
 input[type=password]{flex:1;min-width:200px}
@@ -25,8 +28,13 @@ button.ghost{background:#fff;color:#333;border:1px solid #cbd5e1}
 </head>
 <body>
 <div class="wrap">
-<h1>聊天机器人</h1>
-<p class="sub">接 DeepSeek，学我的说话方式来回你。Key 只存在你自己的浏览器里，不会上传到网站。</p>
+<div class="header">
+<img src="avatar.jpg" alt="坏孩子">
+<div>
+<h1>坏孩子</h1>
+<p><span class="dot"></span>在线 · 接 DeepSeek · 说话直接，不绕弯</p>
+</div>
+</div>
 <div class="card">
 <div class="row">
 <input id="key" type="password" placeholder="输入你的 DeepSeek API Key（sk-开头）">
@@ -39,16 +47,14 @@ button.ghost{background:#fff;color:#333;border:1px solid #cbd5e1}
 </div>
 <div id="chat"></div>
 <div class="row" style="margin-top:12px">
-<input id="input" placeholder="发消息给它……" autocomplete="off">
+<input id="input" placeholder="跟坏孩子聊聊……" autocomplete="off">
 <button id="send">发送</button>
 </div>
-<p class="hint">没有 Key 时先在 DeepSeek 开放平台 platform.deepseek.com 创建一个。Key 只保存在你这台设备的浏览器 localStorage 里，换设备要重新填。说话风格还在等我的聊天记录来定制，目前先用通用口吻。</p>
+<p class="hint">Key 只保存在你自己的浏览器里，不会上传到网站。没有 Key 先去 platform.deepseek.com 创建一个。说话风格还在等 song 的聊天记录来定制，目前先按“坏孩子”这个人设聊。</p>
 </div>
 </div>
 <script>
-// 说话风格（占位）：等用户发来聊天记录后，把提炼出的口头禅、句式、语气写进这里。
-// 注意：写在这里的内容会出现在网页源码里，别人打开页面源代码能看到。
-const STYLE_PROMPT = "你是一个聊天机器人，说话方式要学 song：简短、直接、口语化，用简体中文。先给结论，再给理由，不要客套话，不要长篇大论。";
+const STYLE_PROMPT = "你是“坏孩子”，一个聊天机器人。说话要像 song 本人：简短、直接、口语化，用简体中文，带一点痞气和玩笑，不客套、不说教、不长篇大论。先给结论，再给理由。别人问问题就直接回，别反问太多。";
 const history = [{role:"system", content: STYLE_PROMPT}];
 const chatEl = document.getElementById("chat");
 const keyEl = document.getElementById("key");
@@ -82,12 +88,12 @@ async function send(){
   inputEl.value = "";
   addMsg(text, "user");
   history.push({role:"user", content:text});
-  const botEl = addMsg("正在想……", "bot");
+  const botEl = addMsg("想一下……", "bot");
   try{
     const res = await fetch("https://api.deepseek.com/chat/completions", {
       method:"POST",
       headers:{"Content-Type":"application/json","Authorization":"Bearer " + key},
-      body: JSON.stringify({model: modelEl.value, messages: history, temperature: 0.8})
+      body: JSON.stringify({model: modelEl.value, messages: history, temperature: 0.9})
     });
     const data = await res.json();
     if(!res.ok){
@@ -105,7 +111,7 @@ async function send(){
 }
 document.getElementById("send").onclick = send;
 inputEl.addEventListener("keydown", e => { if(e.key === "Enter") send(); });
-addMsg("你好，我是按 song 的说话方式调的机器人，先聊聊看。", "bot");
+addMsg("是我，坏孩子。想聊什么，直接说，别绕。", "bot");
 </script>
 </body>
 </html>
