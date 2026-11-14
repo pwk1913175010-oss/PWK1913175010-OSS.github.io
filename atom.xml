@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh_CN">
+  <title>不怂</title>
+  <subtitle>不怂的个人博客</subtitle>
+  <link href="https://pwkdrive.xyz/" rel="alternate" type="text/html"/>
+  <link href="https://pwkdrive.xyz/atom.xml" rel="self" type="application/atom+xml"/>
+  <id>https://pwkdrive.xyz/</id>
+  <updated>2026-11-14T00:00:00.000Z</updated>
+  <entry>
+    <title>你好，这里是不怂的博客</title>
+    <link href="https://pwkdrive.xyz/posts/welcome/" rel="alternate" type="text/html"/>
+    <id>https://pwkdrive.xyz/posts/welcome/</id>
+    <published>2026-11-14T00:00:00.000Z</published>
+    <updated>2026-11-14T00:00:00.000Z</updated>
+    <summary>不怂的个人博客开张了，先打个招呼。</summary>
+    <content type="html"><![CDATA[<p>你好，我是不怂。</p>
+<p>这个博客今天开张了。以后会在这里写点东西，留点记录——想到什么写什么，慢慢来。</p>
+<p>欢迎常来看看。</p>
+]]></content>
+    <author><name>不怂</name></author>
+    <category term="随笔"/>
+  </entry>
+</feed>

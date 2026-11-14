@@ -1,0 +1,16 @@
+# 不怂
+
+> 不怂的个人博客
+
+This is the llms.txt file for 不怂. It provides a machine-readable directory of published articles and core pages for Large Language Models.
+
+## Core Pages
+- [Home](https://pwkdrive.xyz/): Main blog entrance and latest post stream.
+- [About](https://pwkdrive.xyz/about/): Author profile, technical stack, and background.
+- [Archive](https://pwkdrive.xyz/archive/): Chronological index of all published writings.
+
+## Articles
+- [你好，这里是不怂的博客](https://pwkdrive.xyz/posts/welcome/): 不怂的个人博客开张了，先打个招呼。
+
+## Full Text Dump
+- [Full Text Archive](https://pwkdrive.xyz/llms-full.txt): Complete, concatenated Markdown content of all public articles for full-context ingestion.
