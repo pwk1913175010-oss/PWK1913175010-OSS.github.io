@@ -7,6 +7,49 @@
   <id>https://pwkdrive.xyz/</id>
   <updated>2026-11-14T00:00:00.000Z</updated>
   <entry>
+    <title>一个人练推拉，也能慢慢变强</title>
+    <link href="https://pwkdrive.xyz/posts/fitness-push-pull/" rel="alternate" type="text/html"/>
+    <id>https://pwkdrive.xyz/posts/fitness-push-pull/</id>
+    <published>2026-11-14T00:00:00.000Z</published>
+    <updated>2026-11-14T00:00:00.000Z</updated>
+    <summary>推拉休循环，不练腿，一个人练，空杆就是现在的正式重量。</summary>
+    <content type="html"><![CDATA[<p>我一个人训练，练的是推—拉—休的循环，练两天，休一天，不练腿。</p>
+<p>推日练胸、肩中束和三头，拉日练背、肩后束和二头。动作不多，但每个动作都做满组数，动作标准比盲目冲重量重要。</p>
+<p>杠铃平板卧推，我现在只能做空杆。空杆就是我的正式重量，不是热身——做满 4 组，每组 8 到 12 次，等能稳稳做到 4×12 了，再一边加 2.5 公斤。一个人练，安全第一，慢慢来。</p>
+<p>不着急，慢慢变强也是一种速度。</p>
+]]></content>
+    <author><name>不怂</name></author>
+    <category term="健身"/>
+  </entry>
+  <entry>
+    <title>让测试更快更精准</title>
+    <link href="https://pwkdrive.xyz/posts/audio-testing/" rel="alternate" type="text/html"/>
+    <id>https://pwkdrive.xyz/posts/audio-testing/</id>
+    <published>2026-11-14T00:00:00.000Z</published>
+    <updated>2026-11-14T00:00:00.000Z</updated>
+    <summary>TMA-60 和 AD1000 系列电声测试仪，测的是喇叭的失真。</summary>
+    <content type="html"><![CDATA[<p>我工作的公司做音频测试，产品是 TMA-60 和 AD1000 系列电声测试仪。</p>
+<p>测试的链路很简单：测试功放推喇叭，喇叭发声，测试仪测喇叭的失真。喇叭 1%、2%、3% 的失真，都是要测出来的，不是凭感觉估的。</p>
+<p>TMA-60 的残余失真小于 -106dB，能自动判定 Pass / Fail。我们的口号就是：让测试更快更精准。</p>
+]]></content>
+    <author><name>不怂</name></author>
+    <category term="工作"/>
+  </entry>
+  <entry>
+    <title>坏孩子：一个学我说话的聊天机器人</title>
+    <link href="https://pwkdrive.xyz/posts/badkid-chatbot/" rel="alternate" type="text/html"/>
+    <id>https://pwkdrive.xyz/posts/badkid-chatbot/</id>
+    <published>2026-11-14T00:00:00.000Z</published>
+    <updated>2026-11-14T00:00:00.000Z</updated>
+    <summary>一个用 DeepSeek 做的聊天机器人，学的是我发消息的方式：短、直接，不绕弯。</summary>
+    <content type="html"><![CDATA[<p>我做了个聊天机器人，名字叫坏孩子。</p>
+<p>它接的是 DeepSeek，说话方式学的是我自己：我平时发消息就是两三个字、五六个字一条，一个意思拆成好几条发，不绕弯子。所以它回消息也是这样，一条一条蹦出来，短、直接。</p>
+<p>它住在一个 Cloudflare Worker 上，打开就能聊，不用填 Key。地址是 https://badkid-chat.pwk1913175010.workers.dev/ ，有兴趣可以去聊两句，看看它像不像我。</p>
+]]></content>
+    <author><name>不怂</name></author>
+    <category term="随笔"/>
+  </entry>
+  <entry>
     <title>你好，这里是不怂的博客</title>
     <link href="https://pwkdrive.xyz/posts/welcome/" rel="alternate" type="text/html"/>
     <id>https://pwkdrive.xyz/posts/welcome/</id>

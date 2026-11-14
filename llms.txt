@@ -10,6 +10,9 @@ This is the llms.txt file for 不怂. It provides a machine-readable directory o
 - [Archive](https://pwkdrive.xyz/archive/): Chronological index of all published writings.
 
 ## Articles
+- [一个人练推拉，也能慢慢变强](https://pwkdrive.xyz/posts/fitness-push-pull/): 推拉休循环，不练腿，一个人练，空杆就是现在的正式重量。
+- [让测试更快更精准](https://pwkdrive.xyz/posts/audio-testing/): TMA-60 和 AD1000 系列电声测试仪，测的是喇叭的失真。
+- [坏孩子：一个学我说话的聊天机器人](https://pwkdrive.xyz/posts/badkid-chatbot/): 一个用 DeepSeek 做的聊天机器人，学的是我发消息的方式：短、直接，不绕弯。
 - [你好，这里是不怂的博客](https://pwkdrive.xyz/posts/welcome/): 不怂的个人博客开张了，先打个招呼。
 
 ## Full Text Dump
