@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>聊天机器人 - pwkdrive</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;margin:0;background:#f6f7f9;color:#222}
+.wrap{max-width:760px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:22px;margin:8px 0 4px}
+.sub{color:#666;font-size:14px;margin:0 0 16px}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:16px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+input,select,button{font-size:15px;padding:10px 12px;border-radius:10px;border:1px solid #cbd5e1}
+input[type=password]{flex:1;min-width:200px}
+button{background:#ff7a1a;color:#fff;border:none;cursor:pointer}
+button.ghost{background:#fff;color:#333;border:1px solid #cbd5e1}
+#chat{height:420px;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:4px 0}
+.msg{max-width:85%;padding:10px 12px;border-radius:12px;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.user{align-self:flex-end;background:#ff7a1a;color:#fff}
+.bot{align-self:flex-start;background:#eef2f7}
+#input{flex:1}
+.hint{font-size:13px;color:#888;margin-top:10px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>聊天机器人</h1>
+<p class="sub">接 DeepSeek，学我的说话方式来回你。Key 只存在你自己的浏览器里，不会上传到网站。</p>
+<div class="card">
+<div class="row">
+<input id="key" type="password" placeholder="输入你的 DeepSeek API Key（sk-开头）">
+<select id="model">
+<option value="deepseek-flash">deepseek-flash（快、便宜）</option>
+<option value="deepseek-v4-pro">deepseek-v4-pro（更强）</option>
+</select>
+<button id="saveKey">保存 Key</button>
+<button id="clearKey" class="ghost">清除</button>
+</div>
+<div id="chat"></div>
+<div class="row" style="margin-top:12px">
+<input id="input" placeholder="发消息给它……" autocomplete="off">
+<button id="send">发送</button>
+</div>
+<p class="hint">没有 Key 时先在 DeepSeek 开放平台 platform.deepseek.com 创建一个。Key 只保存在你这台设备的浏览器 localStorage 里，换设备要重新填。说话风格还在等我的聊天记录来定制，目前先用通用口吻。</p>
+</div>
+</div>
+<script>
+// 说话风格（占位）：等用户发来聊天记录后，把提炼出的口头禅、句式、语气写进这里。
+// 注意：写在这里的内容会出现在网页源码里，别人打开页面源代码能看到。
+const STYLE_PROMPT = "你是一个聊天机器人，说话方式要学 song：简短、直接、口语化，用简体中文。先给结论，再给理由，不要客套话，不要长篇大论。";
+const history = [{role:"system", content: STYLE_PROMPT}];
+const chatEl = document.getElementById("chat");
+const keyEl = document.getElementById("key");
+const modelEl = document.getElementById("model");
+const inputEl = document.getElementById("input");
+keyEl.value = localStorage.getItem("deepseek_api_key") || "";
+function addMsg(text, cls){
+  const d = document.createElement("div");
+  d.className = "msg " + cls;
+  d.textContent = text;
+  chatEl.appendChild(d);
+  chatEl.scrollTop = chatEl.scrollHeight;
+  return d;
+}
+document.getElementById("saveKey").onclick = () => {
+  const k = keyEl.value.trim();
+  if(!k){ alert("先填 Key"); return; }
+  localStorage.setItem("deepseek_api_key", k);
+  alert("Key 已保存在这台浏览器里");
+};
+document.getElementById("clearKey").onclick = () => {
+  localStorage.removeItem("deepseek_api_key");
+  keyEl.value = "";
+  alert("Key 已清除");
+};
+async function send(){
+  const text = inputEl.value.trim();
+  if(!text) return;
+  const key = (localStorage.getItem("deepseek_api_key") || keyEl.value.trim());
+  if(!key){ alert("先输入并保存 DeepSeek API Key"); return; }
+  inputEl.value = "";
+  addMsg(text, "user");
+  history.push({role:"user", content:text});
+  const botEl = addMsg("正在想……", "bot");
+  try{
+    const res = await fetch("https://api.deepseek.com/chat/completions", {
+      method:"POST",
+      headers:{"Content-Type":"application/json","Authorization":"Bearer " + key},
+      body: JSON.stringify({model: modelEl.value, messages: history, temperature: 0.8})
+    });
+    const data = await res.json();
+    if(!res.ok){
+      botEl.textContent = "调用失败（" + res.status + "）：" + (data.error && data.error.message ? data.error.message : "请检查 Key 和余额");
+      history.pop();
+      return;
+    }
+    const reply = data.choices && data.choices[0] && data.choices[0].message ? data.choices[0].message.content : "没拿到回复";
+    botEl.textContent = reply;
+    history.push({role:"assistant", content: reply});
+  }catch(e){
+    botEl.textContent = "网络请求失败，可能是浏览器跨域被挡了。换个浏览器试试，或者之后改走后端代理再调。错误：" + e.message;
+    history.pop();
+  }
+}
+document.getElementById("send").onclick = send;
+inputEl.addEventListener("keydown", e => { if(e.key === "Enter") send(); });
+addMsg("你好，我是按 song 的说话方式调的机器人，先聊聊看。", "bot");
+</script>
+</body>
+</html>
