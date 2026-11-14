@@ -22,38 +22,6 @@
 
 ---
 
-## 让测试更快更精准
-
-- **URL**: https://pwkdrive.xyz/posts/audio-testing/
-- **Published**: 2026-11-14
-- **Category**: 工作
-- **Tags**: 音频测试, TMA-60
-- **Description**: TMA-60 和 AD1000 系列电声测试仪，测的是喇叭的失真。
-
-我工作的公司做音频测试，产品是 TMA-60 和 AD1000 系列电声测试仪。
-
-测试的链路很简单：测试功放推喇叭，喇叭发声，测试仪测喇叭的失真。喇叭 1%、2%、3% 的失真，都是要测出来的，不是凭感觉估的。
-
-TMA-60 的残余失真小于 -106dB，能自动判定 Pass / Fail。我们的口号就是：让测试更快更精准。
-
----
-
-## 坏孩子：一个学我说话的聊天机器人
-
-- **URL**: https://pwkdrive.xyz/posts/badkid-chatbot/
-- **Published**: 2026-11-14
-- **Category**: 随笔
-- **Tags**: AI, 坏孩子
-- **Description**: 一个用 DeepSeek 做的聊天机器人，学的是我发消息的方式：短、直接，不绕弯。
-
-我做了个聊天机器人，名字叫坏孩子。
-
-它接的是 DeepSeek，说话方式学的是我自己：我平时发消息就是两三个字、五六个字一条，一个意思拆成好几条发，不绕弯子。所以它回消息也是这样，一条一条蹦出来，短、直接。
-
-它住在一个 Cloudflare Worker 上，打开就能聊，不用填 Key。地址是 https://badkid-chat.pwk1913175010.workers.dev/ ，有兴趣可以去聊两句，看看它像不像我。
-
----
-
 ## 你好，这里是不怂的博客
 
 - **URL**: https://pwkdrive.xyz/posts/welcome/

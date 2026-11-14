@@ -2,12 +2,6 @@
 &lt;p&gt;推日练胸、肩中束和三头，拉日练背、肩后束和二头。动作不多，但每个动作都做满组数，动作标准比盲目冲重量重要。&lt;/p&gt;
 &lt;p&gt;杠铃平板卧推，我现在只能做空杆。空杆就是我的正式重量，不是热身——做满 4 组，每组 8 到 12 次，等能稳稳做到 4×12 了，再一边加 2.5 公斤。一个人练，安全第一，慢慢来。&lt;/p&gt;
 &lt;p&gt;不着急，慢慢变强也是一种速度。&lt;/p&gt;
-</content:encoded></item><item><title>让测试更快更精准</title><link>https://pwkdrive.xyz/posts/audio-testing/</link><guid isPermaLink="true">https://pwkdrive.xyz/posts/audio-testing/</guid><description>TMA-60 和 AD1000 系列电声测试仪，测的是喇叭的失真。</description><pubDate>Sat, 14 Nov 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;我工作的公司做音频测试，产品是 TMA-60 和 AD1000 系列电声测试仪。&lt;/p&gt;
-&lt;p&gt;测试的链路很简单：测试功放推喇叭，喇叭发声，测试仪测喇叭的失真。喇叭 1%、2%、3% 的失真，都是要测出来的，不是凭感觉估的。&lt;/p&gt;
-&lt;p&gt;TMA-60 的残余失真小于 -106dB，能自动判定 Pass / Fail。我们的口号就是：让测试更快更精准。&lt;/p&gt;
-</content:encoded></item><item><title>坏孩子：一个学我说话的聊天机器人</title><link>https://pwkdrive.xyz/posts/badkid-chatbot/</link><guid isPermaLink="true">https://pwkdrive.xyz/posts/badkid-chatbot/</guid><description>一个用 DeepSeek 做的聊天机器人，学的是我发消息的方式：短、直接，不绕弯。</description><pubDate>Sat, 14 Nov 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;我做了个聊天机器人，名字叫坏孩子。&lt;/p&gt;
-&lt;p&gt;它接的是 DeepSeek，说话方式学的是我自己：我平时发消息就是两三个字、五六个字一条，一个意思拆成好几条发，不绕弯子。所以它回消息也是这样，一条一条蹦出来，短、直接。&lt;/p&gt;
-&lt;p&gt;它住在一个 Cloudflare Worker 上，打开就能聊，不用填 Key。地址是 https://badkid-chat.pwk1913175010.workers.dev/ ，有兴趣可以去聊两句，看看它像不像我。&lt;/p&gt;
 </content:encoded></item><item><title>你好，这里是不怂的博客</title><link>https://pwkdrive.xyz/posts/welcome/</link><guid isPermaLink="true">https://pwkdrive.xyz/posts/welcome/</guid><description>不怂的个人博客开张了，先打个招呼。</description><pubDate>Sat, 14 Nov 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;你好，我是不怂。&lt;/p&gt;
 &lt;p&gt;这个博客今天开张了。以后会在这里写点东西，留点记录——想到什么写什么，慢慢来。&lt;/p&gt;
 &lt;p&gt;欢迎常来看看。&lt;/p&gt;
