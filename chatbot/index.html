@@ -71,7 +71,9 @@ async function send(){
     });
     const data = await res.json();
     if(!res.ok){ botEl.textContent = "出问题了：" + (data.error || res.status); return; }
-    botEl.textContent = data.reply;
+    botEl.remove();
+    const lines = data.reply.split(/\n+/).map(s => s.trim()).filter(Boolean);
+    for (const line of lines) { addMsg(line, "bot"); }
     history.push({role:"user", content:text}, {role:"assistant", content:data.reply});
   }catch(e){ botEl.textContent = "网络请求失败，稍后再试。错误：" + e.message; }
 }
