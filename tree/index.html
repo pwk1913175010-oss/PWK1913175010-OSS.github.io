@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>音频测试方案 · 产品大类与方案库</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f5f3; --surface:#ffffff; --surface2:#f7f8f6; --ink:#161a17; --muted:#5f6a62; --line:#dee2dd; --line2:#c6cec6;
+  --accent:#e85a0c; --accent-deep:#c44a06; --accent-soft:#fff1e8;
+  --c1:#0f766e; --c1-bg:#e6f4f1; --c2:#1d6fb8; --c2-bg:#e8f1fa; --c3:#9a6a00; --c3-bg:#fdf3d7; --c4:#b45309; --c4-bg:#fef0e2; --c5:#475569; --c5-bg:#eef1f4; --c6:#9d2c4a; --c6-bg:#fbe9ee;
+  --chip:#eff2ef; --chip-ink:#2c352f; --shadow:0 1px 2px rgba(20,30,20,.04),0 10px 28px rgba(20,30,20,.06); --shadow-lift:0 2px 4px rgba(20,30,20,.05),0 16px 36px rgba(20,30,20,.11); --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#101311; --surface:#191d1a; --surface2:#212622; --ink:#edf1ed; --muted:#9aa69e; --line:#2c332e; --line2:#3d4740; --accent:#ff7a2e; --accent-deep:#ff8f4d; --accent-soft:#3a2415; --c1:#2dd4bf; --c1-bg:#12332f; --c2:#6cb6ff; --c2-bg:#162f47; --c3:#eab308; --c3-bg:#3a320f; --c4:#fb923c; --c4-bg:#3d2712; --c5:#a8b6c3; --c5-bg:#232c33; --c6:#f27a9a; --c6-bg:#3a1a24; --chip:#262d28; --chip-ink:#dbe4dd; --shadow:0 1px 2px rgba(0,0,0,.25),0 10px 28px rgba(0,0,0,.3); --shadow-lift:0 2px 4px rgba(0,0,0,.3),0 16px 36px rgba(0,0,0,.45); }
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+::selection{background:var(--accent);color:#fff}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans SC",system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+button,input{font:inherit} button{min-height:40px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+.top{max-width:1180px;margin:0 auto;padding:34px 20px 4px}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.16em;font-weight:700;color:var(--accent)}
+.eyebrow::before{content:"";width:30px;height:2px;background:var(--accent);display:inline-block}
+h1{font-size:clamp(30px,4.6vw,46px);line-height:1.12;letter-spacing:-.015em;margin:14px 0 0;font-weight:900}
+h1 .dot{color:var(--accent)}
+.level-tag{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--muted)}
+.level-tag .n{font-family:"IBM Plex Mono",monospace;background:var(--ink);color:var(--bg);border-radius:7px;padding:3px 9px;font-size:11.5px;letter-spacing:.08em}
+.toolbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb, var(--bg) 90%, transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line);margin-top:16px}
+.toolbar-inner{max-width:1180px;margin:0 auto;padding:12px 20px 4px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.search{flex:1 1 260px;display:flex;align-items:center;gap:9px;background:var(--surface);border:1px solid var(--line2);border-radius:12px;padding:0 15px;min-height:46px;transition:border-color .15s ease,box-shadow .15s ease}
+.search:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.search svg{flex:none;color:var(--muted)}
+.search input{border:0;outline:0;background:transparent;width:100%;color:var(--ink);font-size:15px;min-height:44px}
+.search input::placeholder{color:var(--muted)}
+.filters{max-width:1180px;margin:0 auto;padding:8px 20px 12px;display:flex;gap:8px;flex-wrap:wrap}
+.filters span{font-size:13px;color:var(--muted);align-self:center;margin-right:2px}
+.fchip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600;cursor:pointer;min-height:36px;color:var(--chip-ink);transition:border-color .15s ease,background .15s ease,color .15s ease}
+.fchip:hover{border-color:var(--accent);color:var(--accent)}
+.fchip.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.wrap{max-width:1180px;margin:0 auto;padding:16px 20px 44px}
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.cat-card{position:relative;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:19px 18px 16px;cursor:pointer;color:var(--ink);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:11px;min-height:44px;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.cat-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--gc,var(--accent));opacity:0;transition:opacity .18s ease}
+.cat-card:hover{border-color:var(--line2);box-shadow:var(--shadow-lift);transform:translateY(-3px)}
+.cat-card:hover::before{opacity:1}
+.cat-card:active{transform:translateY(-1px)}
+.g1{--gc:var(--c1)} .g2{--gc:var(--c2)} .g3{--gc:var(--c3)} .g4{--gc:var(--c4)} .g5{--gc:var(--c5)} .g6{--gc:var(--c6)}
+.cat-top{display:flex;align-items:flex-start;gap:12px}
+.num{flex:none;font-family:"IBM Plex Mono",monospace;font-size:12.5px;font-weight:700;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--ink);color:var(--bg)}
+.g1 .num{background:var(--c1)} .g2 .num{background:var(--c2)} .g3 .num{background:var(--c3)} .g4 .num{background:var(--c4)} .g5 .num{background:var(--c5)} .g6 .num{background:var(--c6)}
+.cat-card h2{font-size:18px;margin:5px 0 0;line-height:1.3;letter-spacing:-.01em}
+.cat-group{font-size:11.5px;font-weight:700;padding:4px 9px;border-radius:999px;white-space:nowrap;margin-left:auto;flex:none;margin-top:4px}
+.g1 .cat-group{background:var(--c1-bg);color:var(--c1)} .g2 .cat-group{background:var(--c2-bg);color:var(--c2)} .g3 .cat-group{background:var(--c3-bg);color:var(--c3)} .g4 .cat-group{background:var(--c4-bg);color:var(--c4)} .g5 .cat-group{background:var(--c5-bg);color:var(--c5)} .g6 .cat-group{background:var(--c6-bg);color:var(--c6)}
+.cat-hw{font-size:13.5px;line-height:1.65;color:var(--muted);margin:0}
+.cat-hw b{color:var(--ink);font-weight:700}
+.cat-foot{margin-top:auto;padding-top:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:12px}
+.cat-go{margin-left:auto;font-size:13.5px;font-weight:800;color:var(--accent);white-space:nowrap;transition:transform .18s ease}
+.cat-card:hover .cat-go{transform:translateX(3px)}
+.cat-card.hero{border-color:color-mix(in srgb, var(--accent) 45%, var(--line));background:linear-gradient(180deg,var(--accent-soft),var(--surface) 64%)}
+.empty{display:none;text-align:center;padding:38px 20px;background:var(--surface);border:1px dashed var(--line2);border-radius:var(--radius);color:var(--muted);line-height:1.7}
+.empty.show{display:block}
+.detail-bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb, var(--bg) 90%, transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line);margin:0 -20px;padding:10px 20px}
+.crumb{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.back{border:1px solid var(--line2);background:var(--surface);color:var(--ink);border-radius:999px;padding:0 16px;font-weight:700;font-size:14px;cursor:pointer;min-height:42px;transition:border-color .15s ease,color .15s ease}
+.back:hover{border-color:var(--accent);color:var(--accent)}
+.back:active{transform:scale(.98)}
+.crumb-path{font-size:13px;color:var(--muted)}
+.crumb-path b{color:var(--ink)}
+.detail-head h2{font-size:clamp(24px,4vw,34px);margin:16px 0 6px;line-height:1.2;letter-spacing:-.01em}
+.detail-head .ref{font-size:13.5px;color:var(--muted);line-height:1.65;margin:0;max-width:840px}
+.detail-head .ref b{color:var(--ink)}
+.subgroup{margin-top:28px}
+.subgroup-head{display:flex;align-items:baseline;gap:10px;border-bottom:2px solid var(--ink);padding-bottom:9px;margin-bottom:13px;flex-wrap:wrap}
+.subgroup-head h3{font-size:18px;margin:0;letter-spacing:-.01em}
+.subgroup-head span{font-size:12.5px;color:var(--muted)}
+.subgroup-head .sg-count{margin-left:auto;font-size:12px;font-weight:700;background:var(--chip);padding:4px 10px;border-radius:999px;color:var(--chip-ink)}
+.sol-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sol{border:1px solid var(--line);border-radius:12px;padding:15px 16px;background:var(--surface);box-shadow:var(--shadow);transition:border-color .15s ease}
+.sol:hover{border-color:var(--line2)}
+.sol-top{display:flex;gap:10px;align-items:flex-start}
+.sol-num{flex:none;font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:700;background:var(--ink);color:var(--bg);border-radius:7px;padding:4px 8px;margin-top:2px}
+.sol h4{font-size:15.5px;line-height:1.45;margin:0;font-weight:800}
+.sol h4 .latest{font-size:11px;font-weight:800;background:var(--accent);color:#fff;border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:2px;white-space:nowrap}
+.sol-sec{margin-top:12px}
+.sol-sec-t{font-size:11.5px;font-weight:800;letter-spacing:.1em;color:var(--accent-deep);margin-bottom:7px}
+.hw-list{display:flex;flex-wrap:wrap;gap:6px}
+.hw-item{font-size:12.5px;line-height:1.45;background:var(--surface2);border:1px solid var(--line);color:var(--chip-ink);border-radius:8px;padding:5px 9px}
+.hw-item.hl{border-color:var(--accent);color:var(--accent-deep);font-weight:700;background:var(--accent-soft)}
+.hw-line{font-size:13px;line-height:1.65;background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:8px 11px;margin-bottom:6px}
+.hw-line:last-child{margin-bottom:0}
+.hw-line b{color:var(--accent-deep)}
+.test-list{display:flex;flex-wrap:wrap;gap:6px}
+.test{font-size:12.5px;line-height:1.45;background:var(--chip);color:var(--chip-ink);border-radius:8px;padding:5px 9px}
+.test.wide{border-radius:8px}
+.test-txt{font-size:13px;line-height:1.65;color:var(--chip-ink)}
+.sol-note{font-size:13px;line-height:1.65;color:var(--muted);background:var(--surface2);border:1px dashed var(--line2);border-radius:10px;padding:9px 11px;margin-top:11px}
+.summary-note{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:17px 19px;font-size:13.5px;line-height:1.8;color:var(--muted)}
+.summary-note b{color:var(--ink)}
+.detail-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:19px;box-shadow:var(--shadow);margin-top:16px}
+.note{font-size:13.5px;line-height:1.7;color:var(--muted);background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.spec-sec{margin-top:16px}
+.spec-sec:first-of-type{margin-top:14px}
+.spec-t{font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
+.index{margin-top:30px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.index h2{font-size:16px;margin:0 0 6px;letter-spacing:-.01em}
+.index p{margin:0 0 14px;color:var(--muted);font-size:13.5px;line-height:1.6}
+.index-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.index-item{border:1px solid var(--line);border-radius:12px;padding:13px 14px;background:var(--surface2);cursor:pointer;text-align:left;min-height:44px;color:var(--ink);transition:border-color .15s ease,background .15s ease}
+.index-item:hover{border-color:var(--accent);background:var(--surface)}
+.index-item b{display:block;font-size:14px;margin-bottom:3px}
+.index-item span{font-size:12.5px;color:var(--muted);line-height:1.5}
+footer{max-width:1180px;margin:0 auto;padding:20px 20px 38px;color:var(--muted);font-size:13px;line-height:1.7;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line)}
+footer strong{color:var(--ink)}
+[hidden]{display:none!important}
+@media (max-width:900px){ .cat-grid{grid-template-columns:1fr 1fr} }
+@media (max-width:760px){ .sol-grid{grid-template-columns:1fr} .index-grid{grid-template-columns:1fr 1fr} .top{padding-top:22px} .toolbar-inner{padding:10px 14px 2px} .filters{padding-left:14px;padding-right:14px} .wrap,.top,footer{padding-left:14px;padding-right:14px} .detail-bar{margin:0 -14px;padding:10px 14px} }
+@media (max-width:560px){ .cat-grid{grid-template-columns:1fr} .index-grid{grid-template-columns:1fr} .cat-top{flex-wrap:wrap} .cat-group{margin-left:46px;margin-top:0} }
+@media print{ .toolbar,.detail-bar,.back{display:none} body{background:#fff} }
+@media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto!important;transition:none!important} }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="eyebrow">Audiobus · 奥普新音频测试</div>
+  <h1>音频测试方案<br>产品大类 · 方案库<span class="dot">.</span></h1>
+</header>
+
+<!-- ============ 一级界面 ============ -->
+<div id="viewHome">
+  <div class="toolbar" role="search">
+    <div class="toolbar-inner">
+      <label class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="q" type="search" placeholder="搜产品大类或设备型号，如：扬声器 / 耳机 / AD1000 / BT52…" aria-label="搜索产品大类">
+      </label>
+    </div>
+    <div class="filters" id="filters">
+      <span>大类分组：</span>
+      <button class="fchip active" data-filter="">全部</button>
+      <button class="fchip" data-filter="电声产品">电声产品</button>
+      <button class="fchip" data-filter="麦克风与语音">麦克风与语音</button>
+      <button class="fchip" data-filter="功放·蓝牙·车载电子">功放·蓝牙·车载电子</button>
+      <button class="fchip" data-filter="噪声与异常音">噪声与异常音</button>
+      <button class="fchip" data-filter="声学环境">声学环境</button>
+      <button class="fchip" data-filter="音频设备">音频设备</button>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <div class="cat-grid" id="catGrid"></div>
+    <div class="empty" id="empty">没找到匹配的产品大类。<br>换个关键词试试，比如 扬声器、耳机、AD1000，或者点「全部」清除筛选。</div>
+
+    <section class="index" aria-label="按设备反查">
+      <h2>方案最多的品类</h2>
+      <div class="index-grid">
+        <button class="index-item" data-jump="noise"><b>噪音测试 · 约 22 个方案</b><span>NVH / 风扇 / 电动牙刷 / 对讲机 / 机器人 / 笔记本按压</span></button>
+        <button class="index-item" data-jump="speaker"><b>扬声器 / 音箱 · 22 个方案</b><span>常规 / 车载喇叭 / 音箱 / 会议 / 上料机五类全收录</span></button>
+        <button class="index-item" data-jump="earphone"><b>耳机 · 约 15 个方案</b><span>一拖八 / 单站自动化 v3 / 颈挂全流程 / PEAK4</span></button>
+        <button class="index-item" data-jump="mic"><b>麦克风 · 约 13 个方案</b><span>MEMS / A2B / 驻极体 / 模组 V3</span></button>
+        <button class="index-item" data-jump="amp"><b>功放 · 10 个方案</b><span>成品声学 / PCBA / 保伦老化 V5</span></button>
+        <button class="index-item" data-jump="car"><b>汽车声学 · 8 个方案</b><span>三合一 / 功放老化 / 车机功能 / V2 最新</span></button>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- ============ 二级界面 ============ -->
+<div id="viewDetail" hidden>
+  <main class="wrap">
+    <div class="detail-bar">
+      <div class="crumb">
+        <button class="back" id="backBtn" type="button">← 返回产品大类</button>
+        <span class="crumb-path" id="crumbPath"></span>
+      </div>
+    </div>
+    <div class="detail-head">
+      <h2 id="detailTitle"></h2>
+      <p class="ref" id="detailRef"></p>
+    </div>
+    <div id="detailBody"></div>
+  </main>
+</div>
+
+<footer>
+  <span>奥普新 audiobus · 让测试更快更精准</span>
+</footer>
+
+<script>
+/* ================= 一级：18 个产品大类 ================= */
+var GROUPS={g1:"电声产品",g2:"麦克风与语音",g3:"功放·蓝牙·车载电子",g4:"噪声与异常音",g5:"声学环境",g6:"音频设备"};
+var CATS=[
+ {id:"speaker",num:"01",name:"扬声器 / 音箱",g:"g1",hw:"<b>AD2504 / AD2122 / AD2204 / TMA-60</b> 等多套分析仪搭配，MIC-20 为主",badge:"22 个方案 · 5 个子类",hero:true,search:"扬声器 音箱 喇叭 AD2504 AD2122 AD2204 AD1000-4 TMA-60 AMP-68 MIC-20 机器人 上料机 汽车喇叭 摩托车 会议"},
+ {id:"earphone",num:"02",name:"耳机",g:"g1",hw:"<b>AD1000-4 / AD1000-8</b> + BT168 / BT52 + AD711 人工耳，一拖四、一拖八、单站自动化",badge:"21 份 · 去重约 15 个方案",search:"耳机 TWS 颈挂 一拖八 一拖四 BT52 BT168 AD1000 AD711 TBS PEAK4 ANC"},
+ {id:"headphone",num:"03",name:"头戴式耳机",g:"g1",hw:"<b>TMA-60</b> + AD8319 仿真人工耳 + AB24 ×2（V5 最新版在耳机文件夹内）",badge:"3 个方案 · V5 最新",search:"头戴式耳机 TMA-60 AD8319 AD8318 AD711 AB24 AB14 AB16"},
+ {id:"glasses",num:"11",name:"智能眼镜",g:"g1",hw:"<b>AD1000-4</b> + MS588 ×2 + AD711 ×4 + AB15 ×2，另配 BT52 RF 套件（v3）",badge:"6 份 · 去重 5 个方案",search:"智能眼镜 AD1000-4 AD711 AD8319 MS588 BT168 BT52 单体来料"},
+ {id:"smart",num:"16",name:"智能产品",g:"g1",hw:"<b>AD2122</b> + MIC-20 + AMP50-A + AB16 / YAMAHA HS8",badge:"2 个方案",search:"智能产品 AD2122 MIC-20 AMP50-A AB16 MS588 HS8 联宝"},
+ {id:"airtight",num:"18",name:"气密性检测",g:"g1",hw:"<b>30KPA 气密性检测仪</b> · 测试压力 3KPA-30KPA 量程可调节（压力差测漏）",badge:"1 个方案 · 技术规格书",search:"气密性 30KPA 检测仪 测漏 压力差"},
+ {id:"mic",num:"04",name:"麦克风",g:"g2",hw:"<b>AD1000-8 / AD1000-16 / AD2536</b> 三选一 + DA-228 + MS588 / NS65",badge:"18 份 · 去重约 13 个方案",search:"麦克风 MEMS 模组 A2B 驻极体 话筒 AD1000 AD2536 DA-228 DA229 MS588"},
+ {id:"hearing",num:"05",name:"助听器",g:"g2",hw:"成品：<b>AD1000-4</b> + MS588 + AD711 ×2；新款 V1.0 为客供机柜 / 治具 / Dongle",badge:"4 份 · 去重 3 个方案",search:"助听器 AD1000-4 MS588 AD711 OSPL90 RTS65 RTS70 声压级 声增益"},
+ {id:"mos",num:"14",name:"领夹麦 / 语音 MOS",g:"g2",hw:"<b>AD2122</b> + AMP50-D + MS588 + AB14",badge:"1 个方案",search:"领夹麦 语音 MOS POLQA AD2122 AMP50-D MS588 AB14"},
+ {id:"amp",num:"06",name:"功放",g:"g3",hw:"<b>AD1000-4 / AD2502 / AD2536</b> 等多套搭配，含成品声学与老化线",badge:"13 份 · 去重 10 个方案",search:"功放 AD1000 AD2502 AD2536 老化 保伦 MIC-20 BT168 AB24B 负载"},
+ {id:"rf",num:"07",name:"蓝牙产品 / RF",g:"g3",hw:"<b>BT52</b> + RF-W202 / SW202 + RB01 ×2，ANC 四通道与整机测试",badge:"11 份 · 去重约 8 个方案",search:"蓝牙 RF BT52 RF-W202 SW202 RB01 ANC ENC WiFi 远距离 TBS-02Y"},
+ {id:"car",num:"08",name:"汽车声学 / 车机",g:"g3",hw:"<b>AD2536 / AD1000-8</b> + A2B 模块 + 负载箱，整车音效与功放老化",badge:"9 份 · 去重 8 个方案",search:"汽车声学 车机 AD2536 AD1000-8 AMP68 A2B POLQA 老化 MIC-20"},
+ {id:"pcba",num:"12",name:"PCBA",g:"g3",hw:"<b>AD1000-8</b> + BT168 ×4 + 五合一电流测试套件；多功能方案含 AD2122 / AD2502",badge:"3 个方案",search:"PCBA TWS 一拖四 AD1000-8 AD2122 AD2502 BT168 电流 远距离 衰减器"},
+ {id:"noise",num:"10",name:"噪音测试",g:"g4",hw:"<b>AD1000-4 / TMA-60</b> + MIC-20 为主，含加速度传感器与定制隔音箱",badge:"28 份 · 去重约 22 个方案",search:"噪音 噪声 NVH 风扇 电动牙刷 对讲机 摄像头 吉他 机器人 蜂鸣器 马达 AD1000 MIC-20"},
+ {id:"motor",num:"13",name:"电机 / 电源异常音",g:"g4",hw:"<b>AD2122 / AD1000</b> + MIC-20 / GRAS 测量麦克风 + 定制隔音箱（电源文件夹）",badge:"4 个方案",search:"电机 电源 异常音 噪声 AD2122 AD1000 MIC-20 GRAS 程控电源"},
+ {id:"laptop",num:"15",name:"笔记本按压噪声",g:"g4",hw:"<b>AD1000-4</b> + MIC-20 ×2 + AD325 + 定制隔音箱 + 按压模组 + 电控系统",badge:"1 个方案",search:"笔记本 按压噪声 AD1000-4 MIC-20 AD325"},
+ {id:"room",num:"17",name:"消声室 / 静音房",g:"g5",hw:"半 / 全消声室、静音房、听音室建筑与隔音工程方案 · 只含规格参数",badge:"23 份 · 工程规格",search:"消声室 静音房 半消声室 听音室 隔音 本底噪声 自由场"},
+ {id:"mixer",num:"09",name:"调音台",g:"g6",hw:"<b>AD2588</b>（128 通道）/ AD2122 + SWR2755 切换开关 + 机器人 / CCD 视觉",badge:"5 个方案 · V6.1 最新",search:"调音台 AD2588 AD2122 SWR3208 SW2755 X32 机器人 CCD"}
+];
+</script>
+
+<script>
+/* ================= 二级：扬声器方案库（22 个方案，沿用已交付版本） ================= */
+/* hw 数组项：字符串=普通硬件，{t,hl:true}=原文加粗的差异化硬件；lines=整行说明（用于三合一等分段方案） */
+var SPEAKER={
+ ref:"扬声器文件夹共 <b>25 份 PDF</b>（另约 14 份 pptx 未计入），去重后 <b>22 个方案</b>，硬件搭配各不一样。以下全部按 PDF 原文精确提取，通用标配（电脑 / 显示器 / 线材 / 软件 / 机柜 / 电源插座 / 定制治具）已省略，只列差异化核心硬件。",
+ groups:[
+  {name:"常规扬声器",sub:"单测 / 半自动 / 自动化",sols:[
+   {name:"扬声器测试方案书（基础版）",hw:["TMA-60 ×1","MIC-20 ×1","AB14 屏蔽箱"],tests:["FR","THD","灵敏度","异常音R&B","阻抗","TS参数"]},
+   {name:"扬声器测试方案书 V2（半自动化）",hw:["AD2122 ×1","AMP50-D ×1","MIC-20 ×2","STB02 屏蔽箱","BT168 ×1"],tests:["FR","THD","灵敏度","异常音","阻抗","TS参数"]},
+   {name:"扬声器测试方案（全自动化，AD2204版）",hw:["AD2204 ×1","AMP-68 ×1","MIC-20 ×2","机器人模组","PLC（三菱）","CCD-02"],tests:["FR","THD","灵敏度","阻抗","异常音"]},
+   {name:"扬声器测试方案 V3（全自动化·最新）",hw:["AD2504 ×1","AMP-68 ×1","MIC-20 ×2","机器人模组","PLC（三菱）","CCD-02","翻转机构","子母板治具"],tests:["FR","THD","f0","灵敏度","阻抗","极性","异常音","TS参数"]},
+   {name:"扬声器自动化测试方案书 v1",hw:["AD2122 ×1","AMP50-A ×1","MIC-20 ×1","直线模组","分度盘 ×6","隔音箱"],tests:["FR","THD","灵敏度","异常音","阻抗","TS参数"]},
+   {name:"扬声器一拖二测试方案书 v1",hw:["AD2122 ×1","AMP50-A ×1",{t:"AD318S 人工耳 ×2",hl:true},"E04G 机柜"],tests:["FR","THD","灵敏度","异常音","极性"]},
+   {name:"4寸以下自动化方案（ST-02A，英文版 V2.0）",hw:["AD2122 ×1","AMP-50D ×1","MIC-20 ×2","STB-02 屏蔽箱","上下料机器人"],tests:["FR","灵敏度","阻抗","极性","失真","异常音（40kHz采集）"]},
+   {name:"1X4 扬声器 v2（最新，v1为旧版）",hw:["AD1000-4 ×1","AMP50-A ×1","MIC-20 ×4","AB15 屏蔽箱","分格治具"],tests:["FR","THD","异常音（800~1000 PCS/H）"]},
+   {name:"18寸扬声器测试方案书",hw:["AD2204 ×1","AMP-68 ×1","MIC-20 ×2","定制屏蔽箱"],tests:["FR","THD","灵敏度","异常音","阻抗","TS（约80 PCS/H）"]},
+   {name:"4寸喇叭测试系统 ADS-04（规格书）",hw:["自动化屏蔽箱","HSR-SR5700 机器人","360°定位相机"],tests:["SPL","THD","F0","灵敏度","异常音因素/峰值比/AI/AR","阻抗","极性（UPH≥500）"]}
+  ]},
+  {name:"汽车 / 摩托车喇叭类",sub:"车载与两轮喇叭",sols:[
+   {name:"摩托车扬声器（半封闭式）",hw:["AD2122 ×1","AMP-50 ×1",{t:"DDC1203 程控电源 ×1",hl:true},"MIC-20 ×1","TBS-01N 屏蔽箱"],tests:["频率Hz","声压dBSPL","电流A（450-500 PCS/H）"]},
+   {name:"摩托车扬声器（封闭式）",hw:["AD2122 ×1","AMP-50 ×1",{t:"DDC1203 程控电源 ×1",hl:true},"MIC-20 ×1","AB14 屏蔽箱"],tests:["频率Hz","声压dBSPL","电流A（350-400 PCS/H）"]},
+   {name:"汽车喇叭测试方案书",hw:["AD1000-4 ×1","MIC-20 ×4","AMP50-A ×1","语音播报音响","双显示器"],tests:["FR","THD","SPL（四通道，约20S）"]},
+   {name:"扬声器+汽车功放+整车音效（三合一）",lines:[
+     {k:"① 扬声器",v:"AD2122、AMP50-D、MIC-20 ×1、STB-01"},
+     {k:"② 16通道功放",v:"AD2122、SW2755-F ×2、SW2755-M ×2、USB-APIB、AUX0025、多通道负载机柜、直流电源"},
+     {k:"③ 整车音效",v:"AD2122、AD8320仿真人工头、AMP50-D、BT168",hlPart:"AD8320仿真人工头"}
+    ],testLines:["扬声器：FR / THD / 灵敏度 / 异常音 / 阻抗 / TS","功放：FR / THD / SNR / Level vs THD / 输出功率 / Noise","整车：音响开环 / 蓝牙语音 / 通话MIC / 环境底噪 / POLQA"]}
+  ]},
+  {name:"音箱 / 蓝牙音响类",sub:"成品音箱与蓝牙音响",sols:[
+   {name:"成品音箱 V2.0（TBS-01Y）",hw:["AD2204 ×1","AMP-50A ×1","MIC-20 ×4","定制隔音箱"],tests:["频响","THD","异常音","灵敏度","相位（100 PCS/H）"]},
+   {name:"蓝牙音箱半自动测试方案",hw:["AD2122 ×1","AMP-50 ×1","MIC-20 ×1","BT168","定制屏蔽箱"],tests:["FR","THD","灵敏度（约180 PCS/H）"]},
+   {name:"爱笙-蓝牙音响（RF+音频两站）",lines:[
+     {k:"RF 站",v:"BT52 ×1、RF-W202 ×1、RB01 ×2、E01G、GPIB"},
+     {k:"音频站",v:"TMA-60 ×1、BT168 ×1、MIC-20 ×2、AB15"}
+    ],tests:["RF（BR/EDR/BLE）","蓝牙/AUX音频（SPL、THD、异常音、RSSI）"]},
+   {name:"小蜜蜂音响一拖二 V2",hw:["AD1000-4 ×1","SWR-2755 ×1","AMP50-A ×1","MIC-20 ×2","BT168 ×2","USB-APIB ×1","AB24"],tests:["频响","失真","异常音","蓝牙"]}
+  ]},
+  {name:"桌面中控 / 会议扬声器类",sub:"带麦克风的桌面设备",sols:[
+   {name:"USB会议扬声器测试方案书",hw:["AD2122 ×1","AMP50-D ×1","AB14","MS588 ×1","MIC-20 ×1"],tests:["喇叭FR/THD","麦克风灵敏度"]},
+   {name:"桌面中控音频（AD1000版）",hw:["AD1000-4 ×1","AMP-50 ×1","MIC-20 ×1","MS588 ×1","AB16"],tests:["扬声器&麦克风：FR","THD","异常音","灵敏度"]},
+   {name:"桌面中控音频（AD2122版）",hw:["AD2122 ×1","AMP-50 ×1","MIC-20 ×1","MS588 ×1","AB16"],tests:["同上（FR、THD、异常音、灵敏度）"]}
+  ]},
+  {name:"上料机 / 自动化线类",sub:"整线自动化",sols:[
+   {name:"屏蔽箱检测上料机自动化 V3（最新，V2上料模组7套）",hw:["上料模组 ×9","CCD视觉相机","下压机构","AD2122","AMP50-A","MIC-20"],tests:["FR","THD","灵敏度","异常音","阻抗","TS","分档（400-700 PCS/H）"]}
+  ]}
+ ],
+ summary:"<b>小结：</b>分析仪型号从 AD1000-4 / AD2122 / AD2204 / AD2504 / TMA-60 各不相同，功放主要是 AMP50-A / AMP50-D / AMP-68 / AMP-50，麦克风以 MIC-20 为主、一拖二方案用 <b>AD318S 人工耳</b>、整车音效用 <b>AD8320 仿真人工头</b>、摩托车方案额外加 <b>DDC1203 程控电源</b>、蓝牙类加 BT168 / BT52。"
+};
+
+/* ================= 二级：其余 17 个品类的方案库（全品类清单） ================= */
+/* sol 字段：name 方案名（latest:true 显示「最新」标）；hw 核心硬件原文串（渲染时按顶层 + / 、拆条）；
+   lines 分段硬件；hwText 整行硬件说明；tests 可测项目原文串；testLines 整行可测项目；empty 仅封面 */
+var LIBS={
+pcba:{ref:"PCBA 文件夹共 <b>3 份</b>方案书。提取口径：完全照 PDF 原文（设备清单 + 测试指标页），通用标配已剔除。",
+ groups:[{name:"PCBA 方案",sub:"一拖四 / 多功能 / 远距离",sols:[
+  {name:"TWS耳机PCBA音频（一拖四）测试方案 V1.0",hw:"AD1000-8 + AMP50-A + BT168×4 + AB14 + NS-65 + 五合一电流测试套件",tests:"SPK/MIC 频响、灵敏度、失真曲线、静态/工作/充电电流、蓝牙名称/地址/电量、TXRX数据校对、SPP校验"},
+  {name:"巨大-多功能测试方案 02版",lines:[
+    {k:"① PCBA",v:"AD2122、AUX0025、SWR2755-M、APIB、TVCmeter、BT168"},
+    {k:"② 主机/环绕/低音电学",v:"AD2502、BT168、AUX0025、SWR2755-M、APIB"},
+    {k:"③ 成品SPL",v:"TMA-60、BT168、MIC-20、STB03"}
+   ],tests:"消耗电流、DC电压、版本检测、BT/AUX/OPT/USB/HDMI频响·失真·功率、按键、IR、2.4G连接环绕"},
+  {name:"无线产品远距离测试优化方案书",hw:"AD1000-8 + 按键衰减器KT3.0-60/1S-2S + RB01×2（含耦合板）",tests:"频响FREQ、波形曲线、失真THD、有效值RMS Level"}
+ ]}]},
+amp:{ref:"功放文件夹共 <b>13 份</b>，去重 <b>10 个方案</b>。带「最新」标的为同品类内版本号最高者。",
+ groups:[
+  {name:"成品 / PCBA 测试",sub:"声学成品与板级测试",sols:[
+   {name:"AMP PCBA 测试方案 02版",hw:"AD1000-8 + BT168×8 + DDC1203",tests:"BT/AUX/MIC输入检测AMP输出、消耗电流、按键功能"},
+   {name:"IP功放单站测试方案",hw:"AD2502 + SW-2755F + SW-2755M + USB-APIB + 负载(166/83/42/28/20/15Ω)",tests:"FR、THD、SNR、Level vs THD、V-Rms"},
+   {name:"功放PCBA测试方案",hw:"AD2122 + BT168 + SWR2755-F + SWR2755-M + DDC1203 + GBK3-500W稳压电源",tests:"BT/AUX/MIC/SD/USB/FM输入检测AMP输出、静态电流、消耗电流"},
+   {name:"功放成品声学测试方案 v2.1",hw:"AD1000-4 + AMP50-A + MIC-20×4 + BT168×2 + AB24B×2 + NS65B×2 + FM发射器×2",tests:"成品SPL声学（AUX/FM/BT输入，频响、失真）"},
+   {name:"保伦功放测试方案 V1.0",hw:"AD2502 + SWR2755 + APIB + 阻抗负载盒(3000W/6000W)×2",tests:"FR、THD、SNR、增益、IMD、Level vs THD、CMRR、最大输出"}
+  ]},
+  {name:"老化方案",sub:"手动老化 / 自动化老化 / 老化线",sols:[
+   {name:"功放手动老化方案 V2.3",latest:true,hw:"AD2536（8出16进）+ 负载电阻×60",tests:"功率、失真、频率、输出电压（100Hz&1KHz正弦/音乐/语音/噪声循环播放）",note:"同系列另有 V2.0 / V2.1 两版，V2.3 为最新。"},
+   {name:"保伦功放老化方案 V5",latest:true,hw:"音频分析仪24通道×36 + 定阻负载电阻1440 + 定压负载电阻720 + 重型机器人×6 + 温控计×26",tests:"功率/失真/频率/输出电压、温度监测、老化状态"},
+   {name:"功放自动化老化方案 V5",hwText:"同「保伦功放老化方案V5」",tests:"同「保伦功放老化方案V5」"},
+   {name:"功放老化测试自动化方案（×2）",empty:true},
+   {name:"老化线整体方案",empty:true,note:"仅封面 1 页。"}
+  ]}
+ ]},
+hearing:{ref:"助听器文件夹共 <b>4 份</b>，去重 <b>3 个方案</b>。",
+ groups:[{name:"助听器方案",sub:"成品测试 / 软件手册 / 新款蓝牙助听器",sols:[
+  {name:"助听器成品测试方案",hw:"AD1000-4 + AMP50-D + BT168×2 + MS588 + AD711×2 + MIC-20 + AB14",tests:"OSPL90、最大饱和声压级、HFA增益、RTS曲线、满档声增益、等效噪声、有效频宽、失真、A2DP频响/灵敏度/失真/极性/FOG/异常音/延迟、麦克风通话频响/灵敏度/失真/相位/气密、蓝牙名称/地址/电量/RSSI/音量控制/SPP"},
+  {name:"助听器测试软件操作手册",hwText:"（软件使用说明，非方案）",tests:"满档声压级、满档声增益、基本频率响应、失真、等效噪声"},
+  {name:"新款助听器测试方案 V1.0（蓝牙助听器）",latest:true,hw:"客供：测试机柜、测试治具、蓝牙Dongle",tests:"满档声压级、满档声增益、基本频率响应、RTS65单点失真、RTS70单点失真"}
+ ]}]},
+headphone:{ref:"头戴式耳机文件夹共 <b>2 份</b>；V5 最新版在耳机文件夹内，一并列入。",
+ groups:[{name:"头戴式耳机方案",sub:"V1.0 / 方案书 / V5",sols:[
+  {name:"头戴式耳机测试方案 V1.0",hw:"TMA-60 + AD8319仿真人工耳 + AB14 + AD711×2",tests:"FR、THD、Phase、平衡度"},
+  {name:"头戴式耳机测试方案书",hw:"AD2122 + AMP50-D + AD8318 + MS588 + AB16 + BT168",testLines:["A2DP：频响/失真/灵敏度/平衡度","HFP：MIC频响/失真/灵敏度","蓝牙名称/RSSI/延时"]},
+  {name:"头戴式耳机测试方案 V5（在耳机文件夹）",latest:true,hw:"TMA-60 + AD8319 + AB24×2 + AD711×2 + center326噪音校正仪",tests:"FR、THD、Phase、平衡度"}
+ ]}]},
+smart:{ref:"智能产品文件夹共 <b>2 份</b>。",
+ groups:[{name:"智能产品方案",sub:"AD2122 平台",sols:[
+  {name:"智能产品测试方案 AD2122",hw:"AD2122 + MIC-20×2 + AMP50-A + AB16 + MS588",testLines:["SPK：频响/失真/最大声压级","MIC：频响/失真/灵敏度","气密测试"]},
+  {name:"联宝-成品测试方案 v1",hw:"AD2122 + MIC-20 + YAMAHA HS8 + AMP50-A + AD325",tests:"mic：频响/失真/灵敏度、Speak：频响/失真/R&B/声道平衡、产品mic回环"}
+ ]}]},
+glasses:{ref:"智能眼镜文件夹共 <b>6 份</b>，去重 <b>5 个方案</b>。",
+ groups:[{name:"智能眼镜方案",sub:"单体来料 / 整机音频 / 音频+RF",sols:[
+  {name:"单体来料测试方案书",hw:"TMA-60 + MS588 + MIC-20×2",testLines:["喇叭：FR/THD/灵敏度/阻抗/TS","MIC：FR/THD/灵敏度"]},
+  {name:"智能眼镜音频测试方案（旧版）",hw:"AD1000 + AMP-50D + BT168×4 + MS588 + AB14",tests:"BT音频：FR/THD/R&B/灵敏度/RSSI"},
+  {name:"智能眼镜音频测试方案(2)",hw:"AD1000-4 + AMP-50A + BT168×2 + MS588×2 + AD8319×2 + AB24×2",tests:"BT音频：FR/THD/R&B/灵敏度/RSSI/L&R平衡度"},
+  {name:"智能眼镜音频测试方案 v1",hw:"AD1000-4 + AMP50-A + BT168 + MS588 + AD8319 + AB14",tests:"同上"},
+  {name:"智能眼镜音频测试方案 v2",hw:"AD1000-4 + AMP50-A + BT168×2 + MS588×2 + AD8319×2 + AB24×2",tests:"同上"},
+  {name:"智能眼镜音频测试方案 v3",latest:true,lines:[
+    {k:"音频",v:"AD1000-4、AMP50-A、BT168×2、MS588×2、AD711×4、AB15×2"},
+    {k:"RF",v:"BT52、SW202、RB01×2"}
+   ],tests:"BT音频FR/THD/R&B/灵敏度/RSSI/L&R平衡度 + RF"}
+ ]}]},
+airtight:{ref:"气密性检测文件夹共 <b>1 份</b>技术规格书。",
+ groups:[{name:"气密性检测",sub:"压力差测漏",sols:[
+  {name:"30KPA气密性检测仪技术规格书",hw:"30KPA气密性检测仪",tests:"1通道，测试压力 3KPA-30KPA 量程可调节（压力差测漏）"}
+ ]}]}
+};
+</script>
+
+<script>
+/* LIBS 续：噪音 / 汽车 / 电源 / 笔记本 / 耳机 / 蓝牙 / 调音台 / 领夹麦 / 麦克风 / 消声室 */
+LIBS.noise={ref:"噪音测试文件夹共 <b>28 份</b>，去重约 <b>22 个方案</b>。带「最新」标的为同品类内版本号最高者。",
+ groups:[
+  {name:"电机 / NVH / 振动类",sub:"马达电机底噪与异常音",sols:[
+   {name:"NVH噪音测试方案 v2",hw:"AD1000-4 + MIC-20×2 + AB24 + 交流变频电源",tests:"底噪声压级SPL、频谱FFT（马达电机）"},
+   {name:"减震器声音检测设备 v2",hw:"AD1000-2A + MIC-20×1 + 定制隔音箱",tests:"声压级SPL、频率F、频谱FFT（减震器）"},
+   {name:"噪声测试方案",hw:"AD1000-4 + MIC-20×2 + 定制隔音箱",tests:"底噪声压级SPL、频谱FFT（马达电机）"},
+   {name:"电机异常音测试方案 261020",hw:"AD1000-4 + AD-IEPE24 + MIC-20 + 可调直流稳压电源 + AB14",tests:"异常音"},
+   {name:"马达自动分料摆盘与检测线方案 v1",hw:"AD1000-8×2 + 加速度传感器JSD-01×8 + 柔性振动盘 + 视觉定位 + 分料四轴机器人HSR-SR + ESD摆盘托盘",tests:"三轴不良、金属音、高频音（扁平振动马达）"},
+   {name:"NVH智能检测解决方案",hwText:"（宣传性方案，无清单）",tests:"声振数据"}
+  ]},
+  {name:"风扇 / 家电噪声类",sub:"吹风机 / 风扇 / 空调 / 烤箱",sols:[
+   {name:"吹风机噪音测试系统 V1",hw:"AD1000-4 + MIC-20×2 + AB24×2 + 加速度传感器JSD-01×2",tests:"吹风机噪声测试"},
+   {name:"特力-风扇噪音测试方案 20261109 V1",hw:"AD1000-4 + AMP50-A + MIC-20×3 + 定制隔音箱 + AD325",tests:"异常音FFT"},
+   {name:"空调风噪测试",hw:"AD1000-4 + AMP-50A + MIC-20×3 + 加速度传感器JSD-01",tests:"底噪单值、底噪录音、频谱分析、时域波形"},
+   {name:"颈挂风扇人工听音方案",hw:"AD1000-2A + AD-IEPE24 + MIC-20×2 + 监听耳机Sony MDR-7506 + AB15",tests:"人工听音"},
+   {name:"风扇噪音测试方案 V3 260312",hw:"AD1000-4 + MIC-20 + 定制屏蔽箱(底噪<18dB) + DDC1203 + AD325 + 风扇速度控制模块",tests:"声压Pa、音频文件记录"},
+   {name:"风扇噪音测试方案 V4",latest:true,hwText:"同 V3",tests:"声压Pa、音频文件记录"},
+   {name:"Noise testing scheme v2 / 烤箱音频测试方案 v1",empty:true}
+  ]},
+  {name:"电动牙刷 / 蜂鸣器类",sub:"个人护理与发声器件",sols:[
+   {name:"电动牙刷三合一测试方案 250417",hw:"TMA-60 + MIC-20×2 + AB24 + 加速度传感器JSD01",tests:"噪声dB值、噪声曲线、异常音、骨传导（震动频率）"},
+   {name:"电动牙刷噪声测试方案",hw:"TMA-60 + MIC-16×2 + AB24",tests:"噪声dB值、噪声曲线、异常音"},
+   {name:"电动牙刷噪声测试方案 261029",hw:"AD1000-4 + MIC-20 + AD-IEPE24 + AD325 + AB15",tests:"杂音"},
+   {name:"蜂鸣器测试方案 v2",hw:"AD1000-4 + MIC-20",tests:"声压灵敏度SEN、频率FRE"}
+  ]},
+  {name:"整机音频 / 声学类",sub:"对讲机 / 摄像头 / 吉他 / 机器人 / 喇叭",sols:[
+   {name:"对讲机测试方案 v2",hw:"AD2122 + AMP50 + MIC-20 + AB16 + MS588 + BT268",tests:"FR、THD、灵敏度"},
+   {name:"对讲机测试方案 v4",latest:true,hw:"TMA-60 + MIC-20 + AB14 + MS588",tests:"FR、THD、灵敏度"},
+   {name:"鸣笛喇叭测试方案书",hw:"AD2122 + AMP50 + DDC1203 + MIC-20 + AB14",tests:"频率Hz、声压Pa、电流"},
+   {name:"摄像头测试方案 V1",hw:"AD1000-4 + AMP50-A + MIC-20 + MS588 + PDM解码盒DA-228",tests:"FR、THD、灵敏度"},
+   {name:"吉他音频&声学测试方案 v2.1",lines:[
+     {k:"喇叭来料",v:"AD1000-4、AMP50-A、MIC-20、AD326、STB02"},
+     {k:"整机",v:"AD1000-4、AMP50-A、MIC-20、MS588、BT168、路由器、STB03"}
+    ],tests:"SPL、THD、R&B异常音、RSSI、wifi"},
+   {name:"吉他音频&声学测试方案 v3.1",latest:true,hwText:"同上（屏蔽箱AB16）",tests:"SPL、THD、R&B、RSSI、wifi"},
+   {name:"机器人音频测试方案 v2",hw:"TMA-60 + MIC-20 + HS8 + 定制隔音箱",testLines:["Speaker：削波/声腔密封性/异音/声压级/频响/THD+N/谐波幅值/底噪/低频共振点","Mic：增益/频响/灵敏度/信噪比/THD/录音质量/底噪/相位/气密性/延时/丢音/共振"]}
+  ]},
+  {name:"笔记本按压类",sub:"按压 / 摇晃噪声（同方案另存于笔记本文件夹）",sols:[
+   {name:"笔记本&电池按压噪声测试-改造方案 v2",hw:"AD1000-4 + MIC-20 + 定制隔音箱 + 按压模组 + 摇晃模块 + 电控系统",tests:"噪声dB值、噪声曲线"},
+   {name:"笔记本&电池按压噪声测试 0703 V3.0",latest:true,hw:"AD1000-4 + MIC-20×4 + 定制隔音箱 + 按压治具 + 摇晃治具",tests:"噪声dB值、噪声曲线"}
+  ]}
+ ]};
+LIBS.car={ref:"汽车声学文件夹共 <b>9 份</b>，去重 <b>8 个方案</b>。",
+ groups:[{name:"汽车声学方案",sub:"整车音效 / 汽车功放 / 车机功能 / 老化",sols:[
+  {name:"扬声器/汽车功放/汽车整机音效三合一方案书",lines:[
+    {k:"扬声器",v:"AD2122、AMP50-D、MIC-20、STB-01"},
+    {k:"16通道汽车功放",v:"AD2122、SW2755F/M×2、USB-APIB、AUX0025、直流电源"},
+    {k:"整机音效",v:"AD2122、AD8320、AMP50-D、BT168"}
+   ],testLines:["扬声器FR/THD/灵敏度/R&B/阻抗/TS","功放FR/THD/S-N/Level vs THD/输出功率/噪声","整车音效频响/失真/异常音/POLQA/环境底噪"]},
+  {name:"汽车功放测试方案书",hw:"AD2536 + AUX0028×2 + A2B模块 + USB CAN + 负载箱(2Ω/4Ω) + 程控直流电源",tests:"FR、THD、S/N、Level vs THD、输出功率、噪声"},
+  {name:"汽车声学测试方案 V1.0",hw:"AD2536 + MIC-20×4 + AMP-50A×2 + 人工头测试系统",tests:"整车底噪、频响/失真/异常音/POLQA/环境噪声"},
+  {name:"汽车音效测试方案",hw:"AD1000-8 + AD8320 + MIC20×6 + AMP50-A + BT168",tests:"整车音效（频响/失真/异常音/POLQA/底噪）、调音音效（FR/THD/灵敏度/Max SPL）"},
+  {name:"汽车功放测试方案（重复）",hw:"AD2536 + 程控电源 + A2B转换盒 + 负载切换盒",tests:"功率、THD、信噪比、最大功率、串扰、噪声"},
+  {name:"汽车功放老化系统",hw:"AD1000-88 + SW12816×2 + A2B + AUX0028 + 负载电阻4Ω100W×192 + 标准直流电源≥15KW",tests:"输出幅度/输出功率/失真度/信噪比/底噪/频响（20Hz-20KHz）"},
+  {name:"汽车声学测试方案 V2",latest:true,hw:"AD1000-8 + AMP68 + MIC-20×6 + BT168 + MS588",tests:"整车音效、底噪对比、频响油电对比、失真/共振测试"},
+  {name:"车机功能测试方案",hw:"AD2122 + SW2755F/M + USB-APIB + AUX0025 + QT68 + 程控调制信号发生器",tests:"ACC开关机、AUX/重低音/USB/TF、蓝牙通话、FM/AM/DAB"},
+  {name:"通力汽车功放老化测试方案",hw:"AD2536 + SW4816 + 程控电源×3 + A2B转换盒 + 负载切换盒",tests:"功率、总谐波失真"}
+ ]}]};
+LIBS.motor={ref:"电源文件夹共 <b>4 份</b>方案书（含电机异常音与程控电源上位机软件）。",
+ groups:[{name:"电源方案",sub:"噪声测试系统 / 电机异常音 / 程控电源",sols:[
+  {name:"噪声测试系统方案",hw:"AD2122 + AMP-50 + GRAS测量麦克风 + 定制隔音箱",tests:"噪声测试"},
+  {name:"电机异常音测试方案 V1.0",hw:"AD1000 + MIC-20 + 屏蔽箱",tests:"噪音测试、底噪录制"},
+  {name:"电源噪声测试方案",hw:"AD2122 + AMP-50 + MIC-20 + 定制隔音箱",tests:"电源噪声测试"},
+  {name:"程控电源上位机软件开发方案",lines:[
+    {k:"方案①",v:"AD1000-4、AMP-4、AD711×4"},
+    {k:"方案②",v:"AD1000-4、AMP50-D、MS588、AB14、电流计"}
+   ],tests:"频响/增益/失真曲线、信噪比、电压电流（测试点电压、充电/工作/关机电流）"}
+ ]}]};
+LIBS.laptop={ref:"笔记本按压文件夹共 <b>1 份</b>方案书（同主题方案另见「噪音测试」文件夹内的改造版 v2 与 V3.0）。",
+ groups:[{name:"笔记本按压方案",sub:"按压噪声",sols:[
+  {name:"笔记本按压噪声测试方案 V1.0",hw:"AD1000-4 + MIC-20×2 + AD325 + 定制隔音箱 + 按压模组 + 电控系统",tests:"噪声dB值、噪声曲线"}
+ ]}]};
+LIBS.earphone={ref:"耳机文件夹共 <b>21 份</b>，去重约 <b>15 个方案</b>（含头戴式耳机 V5，见「头戴式耳机」品类）。",
+ groups:[
+  {name:"音频测试（一拖多）",sub:"一拖二 / 一拖四 / 一拖八",sols:[
+   {name:"TBS-08音频测试 2x4一拖八",hw:"AD1000-4 + BT168×4 + SW-8 + AB24×2 + NS65×2 + AD711×8 + MS588×2",tests:"一拖八音频测试"},
+   {name:"头戴耳机一拖二测试 TBS-02T",hw:"AD1000-4 + BT168×2 + AMP50-A + AB24×2 + AD8318×2",tests:"头戴耳机一拖二音频"},
+   {name:"音频测试(一拖二) TBS-04",hw:"AD1000-4 + AMP50-D + SW-8 + NS65×2 + AB24×2 + AD711×4",tests:"一拖二音频"},
+   {name:"TWS耳机PCBA音频(一拖四)",hw:"AD1000-8 + AMP50-A + BT168×4 + AB14 + NS-65",tests:"一拖四音频（同PCBA方案）"}
+  ]},
+  {name:"RF 射频",sub:"PCBA 射频测试",sols:[
+   {name:"TWS耳机PCBA射频(一拖二)",hw:"BT-52 + RF-W202 + GR-S343A",tests:"RF测试"}
+  ]},
+  {name:"自动化 / 单站",sub:"全自动化与单站自动化",sols:[
+   {name:"耳机全自动化测试方案",hw:"BT52×4 + TBS-04A",tests:"RF + SPK/MIC/ENC/ANC/UI/气密"},
+   {name:"耳机单站自动化测试方案 v2",lines:[
+     {k:"RF",v:"BT52×2、TZ14×2、四轴机器人"},
+     {k:"音频",v:"AD1000×2、AMP-50×2、NS65×2、AD711×8、TZ14×2"}
+    ],tests:"RF + 音频"},
+   {name:"耳机单站自动化测试方案 v3",latest:true,lines:[
+     {k:"RF",v:"BT52×2、TZ14×2"},
+     {k:"音频",v:"AD1000×2、AMP50×2、NS65×2、AD711×8、TZ14×2"}
+    ],tests:"RF + 音频"},
+   {name:"PEAK4自动化测试升级方案",hw:"整线",tests:"RF/老化充电/气密/ENC/ANC/UI/外观"}
+  ]},
+  {name:"底噪 / 异常音",sub:"底噪与异常音专项",sols:[
+   {name:"耳机底噪测试方案",hw:"TBS-04A",tests:"底噪"},
+   {name:"耳机异常音&底噪测试方案",hw:"TBS-04A",tests:"异常音、底噪"},
+   {name:"底噪测试方案书",hw:"audiobus + MIC-20 + AMP50-D",tests:"底噪"}
+  ]},
+  {name:"研发 / 功能检测",sub:"研发测试与电池功能",sols:[
+   {name:"AD2522耳机研发测试方案",hw:"AD2522 + AUX0025 + AMP50 + AD711/AD318/AD8319 + MIC-20 + MS588 + AD360",tests:"耳机研发测试"},
+   {name:"耳机PCBA电池功能检测",hw:"DDC1203 + SDL1020X",tests:"OVP/UVP/OCP 电池功能"}
+  ]},
+  {name:"全流程 / 其他",sub:"颈挂全流程与包装线",sols:[
+   {name:"颈挂式耳机测试全流程",hw:"功能(电流计+RGB传感器)、IR、BT&WIFI(RF-W202+RB01)、喇叭(TMA60×2+AD711×2)、整机MIC(AD1000-4+BT168×2+AMP50-A+MIC20×2+MS588×2+AB24)、整机声学(AD1000-4+BT168×2+AMP50-A+AD711×4+MS588×2+AB24)、UI(QT68)",tests:"全流程"},
+   {name:"头戴耳机自动化包装线 V1.0",hw:"包装线",tests:"包装（非测试）"}
+  ]}
+ ]};
+LIBS.rf={ref:"蓝牙产品文件夹共 <b>11 份</b>，去重约 <b>8 个方案</b>。",
+ groups:[
+  {name:"RF 射频测试",sub:"BR / EDR / BLE 射频指标",sols:[
+   {name:"RF-02蓝牙射频测试方案书",hw:"BT52 + RF-W202 + RB01×2 + DDC1203 + TVCmeter",tests:"BR/EDR/BLE：输出功率/功率控制/载波漂移/单多时隙灵敏度/调制特性等 + 开机/工作电流"},
+   {name:"RF-02整机RF测试系统 V2.0",hw:"BT52 + RF-W202 + RB01×2",tests:"输出功率/功率控制/初始载波/载波漂移/单多时隙灵敏度/调制特性"},
+   {name:"蓝牙产品射频测试方案 RF-02 V1.0",hw:"BT52 + SW202 + RB01×2",tests:"BR/EDR/BLE 射频指标"},
+   {name:"RF测试指标详述 V1.0",hwText:"（BT52指标说明书）",tests:"载波漂移/单多时隙灵敏度/调制特性/最大输入功率"}
+  ]},
+  {name:"蓝牙音频 / 整机",sub:"ANC / 音箱 / 整机综合",sols:[
+   {name:"ANC四通道蓝牙测试方案 V1.0",hw:"AD1000-4 + AD711×4 + MS588 + BT168×4 + AMP50-D + ANC14 + NS65",tests:"ANC(空载/被动/主动/通透模式)、SPK(频响/灵敏度/失真/相位/R&B)、MIC(频响/灵敏度/失真)、ENC、底噪"},
+   {name:"蓝牙音箱测试方案 TBS-02Y",hw:"TMA60 + BT-168×2 + 自由场MIC×2 + MS588×2 + AB24×2",tests:"A2DP喇叭频响/失真/异常音、HFP通话频响/灵敏度/失真/气密"},
+   {name:"蓝牙产品测试方案",hw:"AD2122 + AMP50-D + BT168 + MIC-20 + 仿真耳711×2 + MS588 + STB03 + BT52 + DDC1203",tests:"RF + 音频(SPK输出功率/频响/失真/灵敏度/平衡度、MIC频响/失真/灵敏度/蓝牙名称/RSSI/电量)"}
+  ]},
+  {name:"无线 / 软件优化",sub:"远距离与软件优化",sols:[
+   {name:"F58无线产品测试软件优化方案书",hw:"AD1000-8",tests:"FR、波形曲线"},
+   {name:"WiFi远距离测试解决方案书",hw:"AD1000-4 + 按键衰减器 + RB01",tests:"FR、THD"}
+  ]}
+ ]};
+LIBS.mixer={ref:"调音台文件夹共 <b>5 份</b>方案书。",
+ groups:[{name:"调音台方案",sub:"数字调音台 / PCBA / 自动化",sols:[
+  {name:"X32数字调音台测试方案 v5",hw:"AD2588+HDMI+SPDIF + SWR3208 + 交流程控电源 + CCD相机模组 + 皮带线传动机构",tests:"FR、THD、SNR、Level vs THD、V-Rms、EQ + 数字/模拟信号、LED/LCD、旋钮/推子/按钮功能"},
+  {name:"保伦调音台测试方案 V1.0",hw:"AD2122 + SW2755-F×3 + SW2755-M + APIB + 机器人HSR-SR5700 + UPS",tests:"FR、THD、SNR、Level vs THD、V-Rms、EQ + 按键旋钮功能"},
+  {name:"调音台PCBA测试方案 V4",hw:"FCT测试机台×3 + AD2122 + 2755F×2 + 2755M×2 + 6轴机器人HSR-CR610-1500 + CCD视觉×4",tests:"FR、THD、SNR、Level vs THD、V-Rms、EQ"},
+  {name:"调音台自动化测试方案 v1",hw:"AD2122 + SWR2755F×6 + SWR2755M + 协作机器人×2 + CCD视觉 + 龙门移动插拔机构",tests:"FR、THD、SNR、Level vs THD、V-Rms"},
+  {name:"调音台自动化测试方案 V6.1（销售性质4页）",latest:true,hw:"AD2588（128通道，兼容X32/M32）",tests:"兼容调音台/放大器/合成器/效果器，测试时间缩短40%"}
+ ]}]};
+LIBS.mos={ref:"领夹麦文件夹共 <b>1 份</b>方案书。",
+ groups:[{name:"领夹麦方案",sub:"语音 MOS 评分",sols:[
+  {name:"语音MOS评分测试方案",hw:"AD2122 + AMP50-D + MS588 + AB14",tests:"MOS、POLQA G.107、Average Delay"}
+ ]}]};
+LIBS.mic={ref:"麦克风文件夹共 <b>18 份</b>，去重约 <b>13 个方案</b>。",
+ groups:[
+  {name:"MEMS / 模组",sub:"模组麦克风与 MEMS",sols:[
+   {name:"MEMS模组麦克风测试方案",hw:"AD1000-4 + AMP-50D + 数转模模块(4通道) + AB14 + MS-588",tests:"FR、THD、SNR、灵敏度"},
+   {name:"MEMS模组麦克风测试方案 v2",latest:true,hwText:"同 v1",tests:"FR(FREQ)、THD、SNR、灵敏度"},
+   {name:"麦克风模组测试方案 V3",latest:true,hw:"AD1000-8(方案一)/AD1000-16(方案二)/AD2536(方案三) + AMP50-A + DA-228×2 + AB14 + MS588/NS65",tests:"FR、THD、灵敏度、MIC间差值、相位、SNR、底噪、电流、气密性"}
+  ]},
+  {name:"来料 / 成品评估",sub:"来料检验与成品评估",sols:[
+   {name:"MIC来料检验测试方案 v1",hw:"TMA-60 + AB14 + 定制治具(含人工嘴、PDM解码器) + 电流计",tests:"FR、灵敏度、消耗电流Idss"},
+   {name:"成品MIC&Speak测试评估报告 v2",hw:"AD1000-4 + AMP50-A + BX5 D3 + MIC-20×3 + MS588 + AD325 + 静音房",tests:"mic频响/失真/灵敏度、Speak频响/失真/R&B/声道平衡、产品mic回环"}
+  ]},
+  {name:"A2B 麦克风",sub:"车载 A2B 麦克风",sols:[
+   {name:"A2B麦克风测试方案书(1)",hw:"AD2122 + AMP50-A + MIC-20 + DA229 + HS8",tests:"FR、灵敏度(1KHz)、相位、THD"},
+   {name:"A2B麦克风测试方案书(2)",hw:"AD1000-8 + AMP50-A×2 + DA229×3 + MIC-20×3 + 全频音响×3 + 电流计×3",tests:"FR、THD、相位、灵敏度、消耗电流IDD、电压Vin/Vout"},
+   {name:"A2B麦克风研发测试方案书",hw:"AD2122 + AMP50-A + MIC-20 + DA229 + HS8",tests:"FR、灵敏度(1KHz)、相位、THD"}
+  ]},
+  {name:"话筒 / 无线 / 驻极体",sub:"手持与电容式传声器",sols:[
+   {name:"无线麦克风测试方案书",hw:"TMA-60 + AB14 + NS65",tests:"FR、THD、灵敏度"},
+   {name:"驻极体电容式传声器（保伦）一拖二方案",hw:"AD1000 + AMP-50A + 步进马达57×2 + 步进电机驱动器DM556×2 + 串口步进控制器YF-53×2 + MS-588×2",tests:"FR、THD、SNR、灵敏度（电机控制左右距离对比）"},
+   {name:"麦克风测试方案书（TMA60&AB15）",hw:"TMA-60 + MIC-20 + AB15 + MS588",tests:"FR、THD、灵敏度"},
+   {name:"话筒麦克风测试方案书",hw:"AD2122 + AMP-50D + MIC-20 + AB16 + Q350",tests:"FR、THD、灵敏度"}
+  ]},
+  {name:"自动化",sub:"流水线自动测试",sols:[
+   {name:"MIC自动测试方案书",hw:"AD2122 + AMP50-A + MS588 + MIC-20 + 倍速链流线 + 不良品流水线",tests:"FR、THD、灵敏度"}
+  ]}
+ ]};
+LIBS.room={ref:"半 / 全消声室方案 <b>16 份</b> + 消声室方案书 <b>7 份</b>，均为建筑与隔音工程方案，PDF 内只含规格参数，不含「核心硬件 + 可测项目」，按规格呈现。",
+ roomNote:"均为半消声室 / 全消声室 / 静音房 / 听音室建筑与隔音工程方案，属客户定制建筑工程方案，联系人多为刘正武。",
+ specGroups:[
+  {t:"关键规格（不同方案数值不同，节选常见值）",items:["本底噪声 ≤25dBA / ≤30dBA / ≤35dBA 等","隔音量 ≥45dB 等","截止频率","自由场半径","房间尺寸（内 / 外尺寸）","隔音门隔音量"]},
+  {t:"结构组成",items:["隔音墙体（多层阻尼复合隔音材料）","减震地面（悬浮减震、固有频率 ≤10Hz）","多层迫紧式隔音门","穿孔吸音板 + 吸音棉","过线孔","照明 / 插座"]}
+ ]};
+</script>
+
+<script>
+/* ================= 渲染与导航 ================= */
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+/* 按括号深度拆分：只在顶层分隔符（+ 、 ，）处断开，括号内不拆 */
+function splitTop(str){
+  var out=[],depth=0,cur="",i,ch;
+  for(i=0;i<str.length;i++){
+    ch=str.charAt(i);
+    if(ch==="("||ch==="（") depth++;
+    else if(ch===")"||ch==="）"){ if(depth>0) depth--; }
+    if(depth===0&&(ch==="+"||ch==="、"||ch==="，")){ out.push(cur); cur=""; }
+    else cur+=ch;
+  }
+  out.push(cur);
+  return out.map(function(s){return s.trim();}).filter(function(s){return s.length>0;});
+}
+function solHTML(s,n){
+  var h='<article class="sol"><div class="sol-top"><span class="sol-num">S'+(n<10?'0':'')+n+'</span><h4>'+esc(s.name)+(s.latest?'<span class="latest">最新</span>':'')+'</h4></div>';
+  if(s.empty){
+    h+='<div class="sol-note">仅封面 / 标题页，PDF 内无设备清单与可测项目。</div>';
+    if(s.note) h+='<div class="sol-note">'+esc(s.note)+'</div>';
+    return h+'</article>';
+  }
+  h+='<div class="sol-sec"><div class="sol-sec-t">核心硬件</div>';
+  if(s.lines){
+    s.lines.forEach(function(L){
+      var v=esc(L.v);
+      if(L.hlPart){ v=v.replace(esc(L.hlPart),'<b>'+esc(L.hlPart)+'</b>'); }
+      h+='<div class="hw-line"><b>'+esc(L.k)+'：</b>'+v+'</div>';
+    });
+  } else if(s.hwText){
+    h+='<div class="hw-line">'+esc(s.hwText)+'</div>';
+  } else if(s.hw && Array.isArray(s.hw)){
+    h+='<div class="hw-list">';
+    s.hw.forEach(function(it){
+      if(typeof it==='string'){ h+='<span class="hw-item">'+esc(it)+'</span>'; }
+      else { h+='<span class="hw-item hl">'+esc(it.t)+'</span>'; }
+    });
+    h+='</div>';
+  } else if(s.hw){
+    h+='<div class="hw-list">';
+    splitTop(s.hw).forEach(function(it){ h+='<span class="hw-item">'+esc(it)+'</span>'; });
+    h+='</div>';
+  }
+  h+='</div><div class="sol-sec"><div class="sol-sec-t">可测项目</div>';
+  if(s.testLines){
+    s.testLines.forEach(function(t){ h+='<div class="test-txt" style="margin-bottom:4px">'+esc(t)+'</div>'; });
+  } else if(s.tests && Array.isArray(s.tests)){
+    h+='<div class="test-list">';
+    s.tests.forEach(function(t){ h+='<span class="test">'+esc(t)+'</span>'; });
+    h+='</div>';
+  } else if(s.tests){
+    h+='<div class="test-list">';
+    splitTop(s.tests).forEach(function(t){ h+='<span class="test'+(t.length>16?' wide':'')+'">'+esc(t)+'</span>'; });
+    h+='</div>';
+  }
+  h+='</div>';
+  if(s.note) h+='<div class="sol-note">'+esc(s.note)+'</div>';
+  return h+'</article>';
+}
+function libHTML(lib){
+  var n=0,h='';
+  lib.groups.forEach(function(g){
+    h+='<section class="subgroup"><div class="subgroup-head"><h3>'+esc(g.name)+'</h3><span>'+esc(g.sub)+'</span><span class="sg-count">'+g.sols.length+' 个方案</span></div><div class="sol-grid">';
+    g.sols.forEach(function(s){ n++; h+=solHTML(s,n); });
+    h+='</div></section>';
+  });
+  if(lib.summary) h+='<div class="summary-note">'+lib.summary+'</div>';
+  return h;
+}
+function renderDetail(cat){
+  var body=document.getElementById('detailBody');
+  if(cat.id==='speaker'){
+    body.innerHTML=libHTML(SPEAKER);
+    document.getElementById('detailRef').innerHTML=SPEAKER.ref;
+    return;
+  }
+  var lib=LIBS[cat.id];
+  if(lib && lib.specGroups){
+    var h='<div class="detail-card"><div class="note">'+esc(lib.roomNote)+'</div>';
+    lib.specGroups.forEach(function(g){
+      h+='<div class="spec-sec"><div class="spec-t">'+esc(g.t)+'</div><div class="test-list">';
+      g.items.forEach(function(it){ h+='<span class="test">'+esc(it)+'</span>'; });
+      h+='</div></div>';
+    });
+    h+='</div>';
+    body.innerHTML=h;
+    document.getElementById('detailRef').innerHTML=lib.ref;
+    return;
+  }
+  body.innerHTML=libHTML(lib);
+  document.getElementById('detailRef').innerHTML=lib.ref;
+}
+var catGrid=document.getElementById('catGrid');
+CATS.sort(function(a,b){return parseInt(a.num,10)-parseInt(b.num,10);});
+CATS.forEach(function(c){
+  var b=document.createElement('button'); b.type='button';
+  b.className='cat-card '+c.g+(c.hero?' hero':''); b.setAttribute('data-cat-id',c.id);
+  b.setAttribute('data-group',GROUPS[c.g]); b.setAttribute('data-search',(c.name+' '+c.search).toLowerCase());
+  b.innerHTML='<span class="cat-top"><span class="num">'+c.num+'</span><h2>'+esc(c.name)+'</h2><span class="cat-group">'+GROUPS[c.g]+'</span></span>'
+    +'<p class="cat-hw">'+c.hw+'</p>'
+    +'<span class="cat-foot"><span class="cat-go">进入方案库 →</span></span>';
+  b.addEventListener('click',function(){ showDetail(c.id); });
+  catGrid.appendChild(b);
+});
+var viewHome=document.getElementById('viewHome'), viewDetail=document.getElementById('viewDetail');
+function showDetail(id){
+  var cat=null; CATS.forEach(function(c){ if(c.id===id) cat=c; });
+  if(!cat) return;
+  document.getElementById('detailTitle').textContent=cat.num+' · '+cat.name;
+  document.getElementById('crumbPath').innerHTML='<b>'+esc(cat.name)+'</b> · '+GROUPS[cat.g];
+  renderDetail(cat);
+  viewHome.hidden=true; viewDetail.hidden=false;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function showHome(){ viewDetail.hidden=true; viewHome.hidden=false; window.scrollTo({top:0,behavior:'smooth'}); }
+document.getElementById('backBtn').addEventListener('click',showHome);
+document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !viewDetail.hidden) showHome(); });
+document.querySelectorAll('[data-jump]').forEach(function(btn){ btn.addEventListener('click',function(){ showDetail(btn.getAttribute('data-jump')); }); });
+
+/* 一级搜索 + 分组筛选 */
+var q=document.getElementById('q'), empty=document.getElementById('empty');
+var chips=Array.prototype.slice.call(document.querySelectorAll('.fchip')); var currentFilter='';
+function apply(){
+  var term=(q.value||'').trim().toLowerCase(); var visible=0;
+  Array.prototype.forEach.call(catGrid.children,function(card){
+    var show=(!term || card.getAttribute('data-search').indexOf(term)!==-1) && (!currentFilter || card.getAttribute('data-group')===currentFilter);
+    card.style.display=show?'':'none'; if(show) visible++;
+  });
+  empty.classList.toggle('show',visible===0);
+}
+q.addEventListener('input',apply);
+chips.forEach(function(ch){ ch.addEventListener('click',function(){ chips.forEach(function(c){c.classList.remove('active')}); ch.classList.add('active'); currentFilter=ch.getAttribute('data-filter')||''; apply(); }); });
+</script>
+</body>
+</html>
