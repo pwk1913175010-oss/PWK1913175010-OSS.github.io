@@ -3,126 +3,139 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="color-scheme" content="light dark" />
+<meta name="color-scheme" content="light" />
 <link rel="icon" href="data:," />
 <title>音频测试方案 · 产品大类与方案库</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f4f5f3; --surface:#ffffff; --surface2:#f7f8f6; --ink:#161a17; --muted:#5f6a62; --line:#dee2dd; --line2:#c6cec6;
-  --accent:#e85a0c; --accent-deep:#c44a06; --accent-soft:#fff1e8;
-  --c1:#0f766e; --c1-bg:#e6f4f1; --c2:#1d6fb8; --c2-bg:#e8f1fa; --c3:#9a6a00; --c3-bg:#fdf3d7; --c4:#b45309; --c4-bg:#fef0e2; --c5:#475569; --c5-bg:#eef1f4; --c6:#9d2c4a; --c6-bg:#fbe9ee;
-  --chip:#eff2ef; --chip-ink:#2c352f; --shadow:0 1px 2px rgba(20,30,20,.04),0 10px 28px rgba(20,30,20,.06); --shadow-lift:0 2px 4px rgba(20,30,20,.05),0 16px 36px rgba(20,30,20,.11); --radius:14px;
-}
-@media (prefers-color-scheme: dark){
-  :root{ --bg:#101311; --surface:#191d1a; --surface2:#212622; --ink:#edf1ed; --muted:#9aa69e; --line:#2c332e; --line2:#3d4740; --accent:#ff7a2e; --accent-deep:#ff8f4d; --accent-soft:#3a2415; --c1:#2dd4bf; --c1-bg:#12332f; --c2:#6cb6ff; --c2-bg:#162f47; --c3:#eab308; --c3-bg:#3a320f; --c4:#fb923c; --c4-bg:#3d2712; --c5:#a8b6c3; --c5-bg:#232c33; --c6:#f27a9a; --c6-bg:#3a1a24; --chip:#262d28; --chip-ink:#dbe4dd; --shadow:0 1px 2px rgba(0,0,0,.25),0 10px 28px rgba(0,0,0,.3); --shadow-lift:0 2px 4px rgba(0,0,0,.3),0 16px 36px rgba(0,0,0,.45); }
+  --bg:#ffffff; --surface:#ffffff; --surface2:#f4f4f3; --ink:#141412; --muted:#5d5d58; --line:#e3e3e0; --line2:#c6c6c1;
+  --accent:#0e7c69; --accent-deep:#075e4e; --accent-soft:#e9f3f0; --on-accent:#ffffff;
+  --chip:#f1f1f0; --chip-ink:#2b2b27; --radius:4px;
+  --serif:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC",sans-serif; --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
 }
 *{box-sizing:border-box} html{scroll-behavior:smooth}
 ::selection{background:var(--accent);color:#fff}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans SC",system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC",system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 button,input{font:inherit} button{min-height:40px}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
-.top{max-width:1180px;margin:0 auto;padding:34px 20px 4px}
-.eyebrow{display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.16em;font-weight:700;color:var(--accent)}
-.eyebrow::before{content:"";width:30px;height:2px;background:var(--accent);display:inline-block}
-h1{font-size:clamp(30px,4.6vw,46px);line-height:1.12;letter-spacing:-.015em;margin:14px 0 0;font-weight:900}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.top{max-width:1180px;margin:0 auto;padding:40px 20px 6px;border-top:4px solid var(--ink)}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:12.5px;letter-spacing:.08em;font-weight:700;color:var(--ink)}
+.eyebrow::before{content:"";width:28px;height:2px;background:var(--accent);display:inline-block}
+h1{font-family:var(--serif);font-size:clamp(32px,4.8vw,50px);line-height:1.18;letter-spacing:.01em;margin:16px 0 0;font-weight:900}
 h1 .dot{color:var(--accent)}
-.level-tag{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--muted)}
-.level-tag .n{font-family:"IBM Plex Mono",monospace;background:var(--ink);color:var(--bg);border-radius:7px;padding:3px 9px;font-size:11.5px;letter-spacing:.08em}
-.toolbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb, var(--bg) 90%, transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line);margin-top:16px}
-.toolbar-inner{max-width:1180px;margin:0 auto;padding:12px 20px 4px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-.search{flex:1 1 260px;display:flex;align-items:center;gap:9px;background:var(--surface);border:1px solid var(--line2);border-radius:12px;padding:0 15px;min-height:46px;transition:border-color .15s ease,box-shadow .15s ease}
+.level-tag{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-size:13px;font-weight:700;color:var(--muted)}
+.level-tag .n{font-family:var(--mono);background:var(--ink);color:var(--bg);border-radius:4px;padding:3px 9px;font-size:11.5px}
+.toolbar{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--ink);margin-top:20px}
+.toolbar-inner{max-width:1180px;margin:0 auto;padding:14px 20px 4px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.search{flex:1 1 260px;display:flex;align-items:center;gap:9px;background:var(--surface);border:1px solid var(--line2);border-radius:4px;padding:0 15px;min-height:46px;transition:border-color .15s ease,box-shadow .15s ease}
 .search:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 .search svg{flex:none;color:var(--muted)}
+.search:focus-within svg{color:var(--accent)}
 .search input{border:0;outline:0;background:transparent;width:100%;color:var(--ink);font-size:15px;min-height:44px}
 .search input::placeholder{color:var(--muted)}
-.filters{max-width:1180px;margin:0 auto;padding:8px 20px 12px;display:flex;gap:8px;flex-wrap:wrap}
+.filters{max-width:1180px;margin:0 auto;padding:10px 20px 14px;display:flex;gap:8px;flex-wrap:wrap}
 .filters span{font-size:13px;color:var(--muted);align-self:center;margin-right:2px}
-.fchip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600;cursor:pointer;min-height:36px;color:var(--chip-ink);transition:border-color .15s ease,background .15s ease,color .15s ease}
-.fchip:hover{border-color:var(--accent);color:var(--accent)}
-.fchip.active{background:var(--accent);border-color:var(--accent);color:#fff}
-.wrap{max-width:1180px;margin:0 auto;padding:16px 20px 44px}
-.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.cat-card{position:relative;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:19px 18px 16px;cursor:pointer;color:var(--ink);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:11px;min-height:44px;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
-.cat-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--gc,var(--accent));opacity:0;transition:opacity .18s ease}
-.cat-card:hover{border-color:var(--line2);box-shadow:var(--shadow-lift);transform:translateY(-3px)}
+.fchip{border:1px solid var(--line2);background:var(--surface);border-radius:4px;padding:7px 13px;font-size:13px;font-weight:600;cursor:pointer;min-height:36px;color:var(--chip-ink);transition:border-color .15s ease,background .15s ease,color .15s ease}
+.fchip:hover{border-color:var(--accent);color:var(--accent-deep)}
+.fchip.active{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 20px 48px}
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.cat-card{position:relative;text-align:left;background:var(--surface);border:0;border-radius:0;padding:20px 18px 16px;cursor:pointer;color:var(--ink);display:flex;flex-direction:column;gap:11px;min-height:44px;overflow:hidden;transition:background .15s ease}
+.cat-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);opacity:0;transition:opacity .15s ease}
+.cat-card:hover{background:var(--accent-soft)}
 .cat-card:hover::before{opacity:1}
-.cat-card:active{transform:translateY(-1px)}
-.g1{--gc:var(--c1)} .g2{--gc:var(--c2)} .g3{--gc:var(--c3)} .g4{--gc:var(--c4)} .g5{--gc:var(--c5)} .g6{--gc:var(--c6)}
 .cat-top{display:flex;align-items:flex-start;gap:12px}
-.num{flex:none;font-family:"IBM Plex Mono",monospace;font-size:12.5px;font-weight:700;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--ink);color:var(--bg)}
-.g1 .num{background:var(--c1)} .g2 .num{background:var(--c2)} .g3 .num{background:var(--c3)} .g4 .num{background:var(--c4)} .g5 .num{background:var(--c5)} .g6 .num{background:var(--c6)}
-.cat-card h2{font-size:18px;margin:5px 0 0;line-height:1.3;letter-spacing:-.01em}
-.cat-group{font-size:11.5px;font-weight:700;padding:4px 9px;border-radius:999px;white-space:nowrap;margin-left:auto;flex:none;margin-top:4px}
-.g1 .cat-group{background:var(--c1-bg);color:var(--c1)} .g2 .cat-group{background:var(--c2-bg);color:var(--c2)} .g3 .cat-group{background:var(--c3-bg);color:var(--c3)} .g4 .cat-group{background:var(--c4-bg);color:var(--c4)} .g5 .cat-group{background:var(--c5-bg);color:var(--c5)} .g6 .cat-group{background:var(--c6-bg);color:var(--c6)}
-.cat-hw{font-size:13.5px;line-height:1.65;color:var(--muted);margin:0}
+.num{flex:none;font-family:var(--mono);font-size:15px;font-weight:700;background:var(--ink);color:var(--bg);border-radius:4px;padding:4px 9px;margin-top:1px;letter-spacing:.04em;line-height:1.25}
+.cat-card:hover .num{background:var(--accent);color:var(--on-accent)}
+.cat-card h2{font-family:var(--serif);font-size:20px;margin:2px 0 0;line-height:1.35;font-weight:900}
+.cat-group{font-size:13px;font-weight:700;padding:6px 11px;border:0;border-radius:4px;white-space:nowrap;margin-left:auto;flex:none;margin-top:2px;color:var(--on-accent);background:var(--accent)}
+.cat-hw{font-size:13.5px;line-height:1.7;color:var(--muted);margin:0}
 .cat-hw b{color:var(--ink);font-weight:700}
-.cat-foot{margin-top:auto;padding-top:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:12px}
-.cat-go{margin-left:auto;font-size:13.5px;font-weight:800;color:var(--accent);white-space:nowrap;transition:transform .18s ease}
-.cat-card:hover .cat-go{transform:translateX(3px)}
-.cat-card.hero{border-color:color-mix(in srgb, var(--accent) 45%, var(--line));background:linear-gradient(180deg,var(--accent-soft),var(--surface) 64%)}
-.empty{display:none;text-align:center;padding:38px 20px;background:var(--surface);border:1px dashed var(--line2);border-radius:var(--radius);color:var(--muted);line-height:1.7}
+.cat-foot{margin-top:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:12px}
+.cat-go{margin-left:auto;font-size:14px;font-weight:700;color:var(--accent-deep);white-space:nowrap}
+.cat-card:hover .cat-go{color:var(--accent-deep);text-decoration:underline;text-underline-offset:3px}
+.cat-card.hero{background:var(--surface)}
+.cat-card.hero::before{opacity:1}
+.empty{display:none;text-align:center;padding:38px 20px;background:var(--surface);border:1px dashed var(--line2);border-radius:4px;color:var(--muted);line-height:1.7;margin-top:14px}
 .empty.show{display:block}
-.detail-bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb, var(--bg) 90%, transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line);margin:0 -20px;padding:10px 20px}
+.detail-bar{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--ink);margin:0 -20px;padding:10px 20px}
 .crumb{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.back{border:1px solid var(--line2);background:var(--surface);color:var(--ink);border-radius:999px;padding:0 16px;font-weight:700;font-size:14px;cursor:pointer;min-height:42px;transition:border-color .15s ease,color .15s ease}
-.back:hover{border-color:var(--accent);color:var(--accent)}
-.back:active{transform:scale(.98)}
+.back{border:1px solid var(--line2);background:var(--surface);color:var(--ink);border-radius:4px;padding:0 16px;font-weight:700;font-size:14px;cursor:pointer;min-height:42px;transition:border-color .15s ease,color .15s ease}
+.back:hover{border-color:var(--accent);color:var(--accent-deep)}
 .crumb-path{font-size:13px;color:var(--muted)}
 .crumb-path b{color:var(--ink)}
-.detail-head h2{font-size:clamp(24px,4vw,34px);margin:16px 0 6px;line-height:1.2;letter-spacing:-.01em}
-.detail-head .ref{font-size:13.5px;color:var(--muted);line-height:1.65;margin:0;max-width:840px}
+.detail-head h2{font-family:var(--serif);font-size:clamp(26px,4vw,36px);margin:20px 0 8px;line-height:1.25;font-weight:900}
+.detail-head .ref{font-size:13.5px;color:var(--muted);line-height:1.7;margin:0;max-width:840px}
 .detail-head .ref b{color:var(--ink)}
-.subgroup{margin-top:28px}
-.subgroup-head{display:flex;align-items:baseline;gap:10px;border-bottom:2px solid var(--ink);padding-bottom:9px;margin-bottom:13px;flex-wrap:wrap}
-.subgroup-head h3{font-size:18px;margin:0;letter-spacing:-.01em}
+.subgroup{margin-top:32px}
+.subgroup-head{display:flex;align-items:baseline;gap:10px;border-bottom:2px solid var(--ink);padding-bottom:9px;margin-bottom:14px;flex-wrap:wrap}
+.subgroup-head h3{font-family:var(--serif);font-size:19px;margin:0;font-weight:900}
 .subgroup-head span{font-size:12.5px;color:var(--muted)}
-.subgroup-head .sg-count{margin-left:auto;font-size:12px;font-weight:700;background:var(--chip);padding:4px 10px;border-radius:999px;color:var(--chip-ink)}
+.subgroup-head .sg-count{margin-left:auto;font-size:12.5px;font-weight:700;background:var(--ink);border:0;padding:5px 11px;border-radius:4px;color:var(--bg)}
 .sol-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.sol{border:1px solid var(--line);border-radius:12px;padding:15px 16px;background:var(--surface);box-shadow:var(--shadow);transition:border-color .15s ease}
-.sol:hover{border-color:var(--line2)}
+.sol{border:1px solid var(--line);border-radius:4px;padding:16px;background:var(--surface);transition:border-color .15s ease}
+.sol:hover{border-color:var(--accent)}
 .sol-top{display:flex;gap:10px;align-items:flex-start}
-.sol-num{flex:none;font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:700;background:var(--ink);color:var(--bg);border-radius:7px;padding:4px 8px;margin-top:2px}
-.sol h4{font-size:15.5px;line-height:1.45;margin:0;font-weight:800}
-.sol h4 .latest{font-size:11px;font-weight:800;background:var(--accent);color:#fff;border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:2px;white-space:nowrap}
-.sol-sec{margin-top:12px}
-.sol-sec-t{font-size:11.5px;font-weight:800;letter-spacing:.1em;color:var(--accent-deep);margin-bottom:7px}
+.sol-num{flex:none;font-family:var(--mono);font-size:12.5px;font-weight:700;background:var(--ink);color:var(--bg);border-radius:4px;padding:5px 9px;margin-top:2px}
+.sol h4{font-family:var(--serif);font-size:16px;line-height:1.5;margin:0;font-weight:700}
+.sol h4 .latest{font-family:inherit;font-size:12px;font-weight:700;background:var(--accent);color:var(--on-accent);border-radius:4px;padding:3px 9px;margin-left:6px;vertical-align:2px;white-space:nowrap}
+.sol-sec{margin-top:13px}
+.sol-sec-t{font-size:11.5px;font-weight:700;letter-spacing:.06em;color:var(--ink);margin-bottom:7px}
 .hw-list{display:flex;flex-wrap:wrap;gap:6px}
-.hw-item{font-size:12.5px;line-height:1.45;background:var(--surface2);border:1px solid var(--line);color:var(--chip-ink);border-radius:8px;padding:5px 9px}
+.hw-item{font-size:12.5px;line-height:1.45;background:var(--surface2);border:1px solid var(--line);color:var(--chip-ink);border-radius:4px;padding:5px 9px}
 .hw-item.hl{border-color:var(--accent);color:var(--accent-deep);font-weight:700;background:var(--accent-soft)}
-.hw-line{font-size:13px;line-height:1.65;background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:8px 11px;margin-bottom:6px}
+.hw-line{font-size:13px;line-height:1.65;background:var(--surface2);border:1px solid var(--line);border-radius:4px;padding:8px 11px;margin-bottom:6px}
 .hw-line:last-child{margin-bottom:0}
-.hw-line b{color:var(--accent-deep)}
+.hw-line b{color:var(--ink)}
 .test-list{display:flex;flex-wrap:wrap;gap:6px}
-.test{font-size:12.5px;line-height:1.45;background:var(--chip);color:var(--chip-ink);border-radius:8px;padding:5px 9px}
-.test.wide{border-radius:8px}
+.test{font-size:12.5px;line-height:1.45;background:var(--chip);color:var(--chip-ink);border-radius:4px;padding:5px 9px}
 .test-txt{font-size:13px;line-height:1.65;color:var(--chip-ink)}
-.sol-note{font-size:13px;line-height:1.65;color:var(--muted);background:var(--surface2);border:1px dashed var(--line2);border-radius:10px;padding:9px 11px;margin-top:11px}
-.summary-note{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:17px 19px;font-size:13.5px;line-height:1.8;color:var(--muted)}
+.sol-note{font-size:13px;line-height:1.65;color:var(--muted);background:var(--surface2);border:1px dashed var(--line2);border-radius:4px;padding:9px 11px;margin-top:11px}
+.summary-note{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--ink);border-radius:4px;padding:17px 19px;font-size:13.5px;line-height:1.8;color:var(--muted)}
 .summary-note b{color:var(--ink)}
-.detail-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:19px;box-shadow:var(--shadow);margin-top:16px}
-.note{font-size:13.5px;line-height:1.7;color:var(--muted);background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.detail-card{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:19px;margin-top:16px}
+.note{font-size:13.5px;line-height:1.7;color:var(--muted);background:var(--surface2);border:1px solid var(--line);border-radius:4px;padding:12px 14px}
 .spec-sec{margin-top:16px}
 .spec-sec:first-of-type{margin-top:14px}
-.spec-t{font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
-.index{margin-top:30px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
-.index h2{font-size:16px;margin:0 0 6px;letter-spacing:-.01em}
+.spec-t{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--ink);margin-bottom:8px}
+.index{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:20px}
+.index h2{font-family:var(--serif);font-size:18px;margin:0 0 6px;font-weight:900}
 .index p{margin:0 0 14px;color:var(--muted);font-size:13.5px;line-height:1.6}
 .index-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.index-item{border:1px solid var(--line);border-radius:12px;padding:13px 14px;background:var(--surface2);cursor:pointer;text-align:left;min-height:44px;color:var(--ink);transition:border-color .15s ease,background .15s ease}
-.index-item:hover{border-color:var(--accent);background:var(--surface)}
+.index-item{border:1px solid var(--line);border-radius:4px;padding:13px 14px;background:transparent;cursor:pointer;text-align:left;min-height:44px;color:var(--ink);transition:border-color .15s ease,background .15s ease}
+.index-item:hover{border-color:var(--accent);background:var(--accent-soft)}
 .index-item b{display:block;font-size:14px;margin-bottom:3px}
 .index-item span{font-size:12.5px;color:var(--muted);line-height:1.5}
-footer{max-width:1180px;margin:0 auto;padding:20px 20px 38px;color:var(--muted);font-size:13px;line-height:1.7;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line)}
+footer{max-width:1180px;margin:0 auto;padding:20px 20px 38px;color:var(--muted);font-size:13px;line-height:1.7;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--ink)}
 footer strong{color:var(--ink)}
 [hidden]{display:none!important}
+
+.cat-count{flex:none;font-size:13px;font-weight:700;background:var(--accent);color:var(--on-accent);border-radius:4px;padding:5px 10px;white-space:nowrap}
+.cat-badge{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.res-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.res-head h2{margin:0}
+.res-count{font-size:12.5px;font-weight:700;background:var(--ink);color:var(--bg);border-radius:4px;padding:4px 10px}
+.res-list{display:flex;flex-direction:column;gap:8px}
+.res-item{border:1px solid var(--line);border-radius:4px;padding:11px 14px;background:transparent;cursor:pointer;text-align:left;color:var(--ink);min-height:44px;transition:border-color .15s ease,background .15s ease}
+.res-item:hover{border-color:var(--accent);background:var(--accent-soft)}
+.res-item b{display:block;font-size:14.5px;margin-bottom:2px}
+.res-item span{font-size:12.5px;color:var(--muted);line-height:1.55;display:block}
+.res-item .res-cat{color:var(--accent-deep);font-weight:700}
+.dev-grid{display:flex;flex-wrap:wrap;gap:8px}
+.dev-chip{border:1px solid var(--line2);background:var(--surface);border-radius:4px;padding:8px 13px;font-size:13.5px;font-weight:700;cursor:pointer;min-height:40px;color:var(--ink);transition:border-color .15s ease,background .15s ease,color .15s ease}
+.dev-chip:hover{border-color:var(--accent);color:var(--accent-deep);background:var(--accent-soft)}
+.dev-chip span{font-weight:600;color:var(--muted);font-size:12.5px}
+.dev-chip:hover span{color:var(--accent-deep)}
+.detail-search{flex:1 1 200px;max-width:430px;margin-left:auto;min-height:42px;padding:0 12px}
+.detail-search input{min-height:40px;font-size:14px}
+.detail-count{font-size:12.5px;font-weight:700;color:var(--accent-deep);white-space:nowrap}
 @media (max-width:900px){ .cat-grid{grid-template-columns:1fr 1fr} }
-@media (max-width:760px){ .sol-grid{grid-template-columns:1fr} .index-grid{grid-template-columns:1fr 1fr} .top{padding-top:22px} .toolbar-inner{padding:10px 14px 2px} .filters{padding-left:14px;padding-right:14px} .wrap,.top,footer{padding-left:14px;padding-right:14px} .detail-bar{margin:0 -14px;padding:10px 14px} }
-@media (max-width:560px){ .cat-grid{grid-template-columns:1fr} .index-grid{grid-template-columns:1fr} .cat-top{flex-wrap:wrap} .cat-group{margin-left:46px;margin-top:0} }
+@media (max-width:760px){ .sol-grid{grid-template-columns:1fr} .index-grid{grid-template-columns:1fr 1fr} .top{padding-top:26px} .toolbar-inner{padding:10px 14px 2px} .filters{padding-left:14px;padding-right:14px} .wrap,.top,footer{padding-left:14px;padding-right:14px} .detail-bar{margin:0 -14px;padding:10px 14px} }
+@media (max-width:560px){ .cat-grid{grid-template-columns:1fr} .index-grid{grid-template-columns:1fr} .cat-top{flex-wrap:wrap} .cat-group{margin-left:38px;margin-top:0} }
 @media print{ .toolbar,.detail-bar,.back{display:none} body{background:#fff} }
 @media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto!important;transition:none!important} }
 </style>
+
 </head>
 <body>
 <header class="top">
@@ -136,7 +149,7 @@ footer strong{color:var(--ink)}
     <div class="toolbar-inner">
       <label class="search">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input id="q" type="search" placeholder="搜产品大类或设备型号，如：扬声器 / 耳机 / AD1000 / BT52…" aria-label="搜索产品大类">
+        <input id="q" type="search" placeholder="搜方案名 / 品类 / 设备 / 可测项目，如：异常音 / AD1000 / BT52…" aria-label="搜索方案、品类与设备">
       </label>
     </div>
     <div class="filters" id="filters">
@@ -155,15 +168,26 @@ footer strong{color:var(--ink)}
     <div class="cat-grid" id="catGrid"></div>
     <div class="empty" id="empty">没找到匹配的产品大类。<br>换个关键词试试，比如 扬声器、耳机、AD1000，或者点「全部」清除筛选。</div>
 
+    <section class="index" id="solResults" hidden aria-label="方案搜索结果">
+      <div class="res-head"><h2>匹配的方案</h2><span class="res-count" id="resCount"></span></div>
+      <div class="res-list" id="resList"></div>
+    </section>
+
     <section class="index" aria-label="按设备反查">
+      <h2>按设备反查</h2>
+      <p>手上有哪台设备，就点哪台——直接列出用到它的全部方案，点方案名进对应品类的方案库。</p>
+      <div class="dev-grid" id="devGrid"></div>
+    </section>
+
+    <section class="index" aria-label="方案最多的品类">
       <h2>方案最多的品类</h2>
       <div class="index-grid">
-        <button class="index-item" data-jump="noise"><b>噪音测试 · 约 22 个方案</b><span>NVH / 风扇 / 电动牙刷 / 对讲机 / 机器人 / 笔记本按压</span></button>
+        <button class="index-item" data-jump="noise"><b>噪音测试 · 26 个方案</b><span>NVH / 风扇 / 电动牙刷 / 对讲机 / 机器人 / 笔记本按压</span></button>
         <button class="index-item" data-jump="speaker"><b>扬声器 / 音箱 · 22 个方案</b><span>常规 / 车载喇叭 / 音箱 / 会议 / 上料机五类全收录</span></button>
-        <button class="index-item" data-jump="earphone"><b>耳机 · 约 15 个方案</b><span>一拖八 / 单站自动化 v3 / 颈挂全流程 / PEAK4</span></button>
-        <button class="index-item" data-jump="mic"><b>麦克风 · 约 13 个方案</b><span>MEMS / A2B / 驻极体 / 模组 V3</span></button>
+        <button class="index-item" data-jump="earphone"><b>耳机 · 16 个方案</b><span>一拖八 / 单站自动化 v3 / 颈挂全流程 / PEAK4</span></button>
+        <button class="index-item" data-jump="mic"><b>麦克风 · 13 个方案</b><span>MEMS / A2B / 驻极体 / 模组 V3</span></button>
         <button class="index-item" data-jump="amp"><b>功放 · 10 个方案</b><span>成品声学 / PCBA / 保伦老化 V5</span></button>
-        <button class="index-item" data-jump="car"><b>汽车声学 · 8 个方案</b><span>三合一 / 功放老化 / 车机功能 / V2 最新</span></button>
+        <button class="index-item" data-jump="car"><b>汽车声学 · 9 个方案</b><span>三合一 / 功放老化 / 车机功能 / V2 最新</span></button>
       </div>
     </section>
   </main>
@@ -176,6 +200,11 @@ footer strong{color:var(--ink)}
       <div class="crumb">
         <button class="back" id="backBtn" type="button">← 返回产品大类</button>
         <span class="crumb-path" id="crumbPath"></span>
+        <label class="search detail-search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input id="dq" type="search" placeholder="在本品类内搜方案 / 硬件 / 可测项目…" aria-label="在本品类内搜索方案">
+        </label>
+        <span class="detail-count" id="detailCount"></span>
       </div>
     </div>
     <div class="detail-head">
@@ -194,24 +223,24 @@ footer strong{color:var(--ink)}
 /* ================= 一级：18 个产品大类 ================= */
 var GROUPS={g1:"电声产品",g2:"麦克风与语音",g3:"功放·蓝牙·车载电子",g4:"噪声与异常音",g5:"声学环境",g6:"音频设备"};
 var CATS=[
- {id:"speaker",num:"01",name:"扬声器 / 音箱",g:"g1",hw:"<b>AD2504 / AD2122 / AD2204 / TMA-60</b> 等多套分析仪搭配，MIC-20 为主",badge:"22 个方案 · 5 个子类",hero:true,search:"扬声器 音箱 喇叭 AD2504 AD2122 AD2204 AD1000-4 TMA-60 AMP-68 MIC-20 机器人 上料机 汽车喇叭 摩托车 会议"},
- {id:"earphone",num:"02",name:"耳机",g:"g1",hw:"<b>AD1000-4 / AD1000-8</b> + BT168 / BT52 + AD711 人工耳，一拖四、一拖八、单站自动化",badge:"21 份 · 去重约 15 个方案",search:"耳机 TWS 颈挂 一拖八 一拖四 BT52 BT168 AD1000 AD711 TBS PEAK4 ANC"},
- {id:"headphone",num:"03",name:"头戴式耳机",g:"g1",hw:"<b>TMA-60</b> + AD8319 仿真人工耳 + AB24 ×2（V5 最新版在耳机文件夹内）",badge:"3 个方案 · V5 最新",search:"头戴式耳机 TMA-60 AD8319 AD8318 AD711 AB24 AB14 AB16"},
- {id:"glasses",num:"11",name:"智能眼镜",g:"g1",hw:"<b>AD1000-4</b> + MS588 ×2 + AD711 ×4 + AB15 ×2，另配 BT52 RF 套件（v3）",badge:"6 份 · 去重 5 个方案",search:"智能眼镜 AD1000-4 AD711 AD8319 MS588 BT168 BT52 单体来料"},
- {id:"smart",num:"16",name:"智能产品",g:"g1",hw:"<b>AD2122</b> + MIC-20 + AMP50-A + AB16 / YAMAHA HS8",badge:"2 个方案",search:"智能产品 AD2122 MIC-20 AMP50-A AB16 MS588 HS8 联宝"},
- {id:"airtight",num:"18",name:"气密性检测",g:"g1",hw:"<b>30KPA 气密性检测仪</b> · 测试压力 3KPA-30KPA 量程可调节（压力差测漏）",badge:"1 个方案 · 技术规格书",search:"气密性 30KPA 检测仪 测漏 压力差"},
- {id:"mic",num:"04",name:"麦克风",g:"g2",hw:"<b>AD1000-8 / AD1000-16 / AD2536</b> 三选一 + DA-228 + MS588 / NS65",badge:"18 份 · 去重约 13 个方案",search:"麦克风 MEMS 模组 A2B 驻极体 话筒 AD1000 AD2536 DA-228 DA229 MS588"},
- {id:"hearing",num:"05",name:"助听器",g:"g2",hw:"成品：<b>AD1000-4</b> + MS588 + AD711 ×2；新款 V1.0 为客供机柜 / 治具 / Dongle",badge:"4 份 · 去重 3 个方案",search:"助听器 AD1000-4 MS588 AD711 OSPL90 RTS65 RTS70 声压级 声增益"},
- {id:"mos",num:"14",name:"领夹麦 / 语音 MOS",g:"g2",hw:"<b>AD2122</b> + AMP50-D + MS588 + AB14",badge:"1 个方案",search:"领夹麦 语音 MOS POLQA AD2122 AMP50-D MS588 AB14"},
- {id:"amp",num:"06",name:"功放",g:"g3",hw:"<b>AD1000-4 / AD2502 / AD2536</b> 等多套搭配，含成品声学与老化线",badge:"13 份 · 去重 10 个方案",search:"功放 AD1000 AD2502 AD2536 老化 保伦 MIC-20 BT168 AB24B 负载"},
- {id:"rf",num:"07",name:"蓝牙产品 / RF",g:"g3",hw:"<b>BT52</b> + RF-W202 / SW202 + RB01 ×2，ANC 四通道与整机测试",badge:"11 份 · 去重约 8 个方案",search:"蓝牙 RF BT52 RF-W202 SW202 RB01 ANC ENC WiFi 远距离 TBS-02Y"},
- {id:"car",num:"08",name:"汽车声学 / 车机",g:"g3",hw:"<b>AD2536 / AD1000-8</b> + A2B 模块 + 负载箱，整车音效与功放老化",badge:"9 份 · 去重 8 个方案",search:"汽车声学 车机 AD2536 AD1000-8 AMP68 A2B POLQA 老化 MIC-20"},
- {id:"pcba",num:"12",name:"PCBA",g:"g3",hw:"<b>AD1000-8</b> + BT168 ×4 + 五合一电流测试套件；多功能方案含 AD2122 / AD2502",badge:"3 个方案",search:"PCBA TWS 一拖四 AD1000-8 AD2122 AD2502 BT168 电流 远距离 衰减器"},
- {id:"noise",num:"10",name:"噪音测试",g:"g4",hw:"<b>AD1000-4 / TMA-60</b> + MIC-20 为主，含加速度传感器与定制隔音箱",badge:"28 份 · 去重约 22 个方案",search:"噪音 噪声 NVH 风扇 电动牙刷 对讲机 摄像头 吉他 机器人 蜂鸣器 马达 AD1000 MIC-20"},
- {id:"motor",num:"13",name:"电机 / 电源异常音",g:"g4",hw:"<b>AD2122 / AD1000</b> + MIC-20 / GRAS 测量麦克风 + 定制隔音箱（电源文件夹）",badge:"4 个方案",search:"电机 电源 异常音 噪声 AD2122 AD1000 MIC-20 GRAS 程控电源"},
- {id:"laptop",num:"15",name:"笔记本按压噪声",g:"g4",hw:"<b>AD1000-4</b> + MIC-20 ×2 + AD325 + 定制隔音箱 + 按压模组 + 电控系统",badge:"1 个方案",search:"笔记本 按压噪声 AD1000-4 MIC-20 AD325"},
- {id:"room",num:"17",name:"消声室 / 静音房",g:"g5",hw:"半 / 全消声室、静音房、听音室建筑与隔音工程方案 · 只含规格参数",badge:"23 份 · 工程规格",search:"消声室 静音房 半消声室 听音室 隔音 本底噪声 自由场"},
- {id:"mixer",num:"09",name:"调音台",g:"g6",hw:"<b>AD2588</b>（128 通道）/ AD2122 + SWR2755 切换开关 + 机器人 / CCD 视觉",badge:"5 个方案 · V6.1 最新",search:"调音台 AD2588 AD2122 SWR3208 SW2755 X32 机器人 CCD"}
+ {id:"speaker",num:"01",name:"扬声器 / 音箱",g:"g1",hw:"<b>AD2504 / AD2122 / AD2204 / TMA-60</b> 等多套分析仪搭配，MIC-20 为主",badge:"5 个子类",hero:true,search:"扬声器 音箱 喇叭 AD2504 AD2122 AD2204 AD1000-4 TMA-60 AMP-68 MIC-20 机器人 上料机 汽车喇叭 摩托车 会议"},
+ {id:"earphone",num:"02",name:"耳机",g:"g1",hw:"<b>AD1000-4 / AD1000-8</b> + BT168 / BT52 + AD711 人工耳，一拖四、一拖八、单站自动化",badge:"21 份 PDF",search:"耳机 TWS 颈挂 一拖八 一拖四 BT52 BT168 AD1000 AD711 TBS PEAK4 ANC"},
+ {id:"headphone",num:"03",name:"头戴式耳机",g:"g1",hw:"<b>TMA-60</b> + AD8319 仿真人工耳 + AB24 ×2（V5 最新版在耳机文件夹内）",badge:"V5 最新",search:"头戴式耳机 TMA-60 AD8319 AD8318 AD711 AB24 AB14 AB16"},
+ {id:"glasses",num:"11",name:"智能眼镜",g:"g1",hw:"<b>AD1000-4</b> + MS588 ×2 + AD711 ×4 + AB15 ×2，另配 BT52 RF 套件（v3）",badge:"6 份 PDF",search:"智能眼镜 AD1000-4 AD711 AD8319 MS588 BT168 BT52 单体来料"},
+ {id:"smart",num:"16",name:"智能产品",g:"g1",hw:"<b>AD2122</b> + MIC-20 + AMP50-A + AB16 / YAMAHA HS8",badge:"",search:"智能产品 AD2122 MIC-20 AMP50-A AB16 MS588 HS8 联宝"},
+ {id:"airtight",num:"18",name:"气密性检测",g:"g1",hw:"<b>30KPA 气密性检测仪</b> · 测试压力 3KPA-30KPA 量程可调节（压力差测漏）",badge:"技术规格书",search:"气密性 30KPA 检测仪 测漏 压力差"},
+ {id:"mic",num:"04",name:"麦克风",g:"g2",hw:"<b>AD1000-8 / AD1000-16 / AD2536</b> 三选一 + DA-228 + MS588 / NS65",badge:"18 份 PDF",search:"麦克风 MEMS 模组 A2B 驻极体 话筒 AD1000 AD2536 DA-228 DA229 MS588"},
+ {id:"hearing",num:"05",name:"助听器",g:"g2",hw:"成品：<b>AD1000-4</b> + MS588 + AD711 ×2；新款 V1.0 为客供机柜 / 治具 / Dongle",badge:"4 份 PDF",search:"助听器 AD1000-4 MS588 AD711 OSPL90 RTS65 RTS70 声压级 声增益"},
+ {id:"mos",num:"14",name:"领夹麦 / 语音 MOS",g:"g2",hw:"<b>AD2122</b> + AMP50-D + MS588 + AB14",badge:"",search:"领夹麦 语音 MOS POLQA AD2122 AMP50-D MS588 AB14"},
+ {id:"amp",num:"06",name:"功放",g:"g3",hw:"<b>AD1000-4 / AD2502 / AD2536</b> 等多套搭配，含成品声学与老化线",badge:"13 份 PDF",search:"功放 AD1000 AD2502 AD2536 老化 保伦 MIC-20 BT168 AB24B 负载"},
+ {id:"rf",num:"07",name:"蓝牙产品 / RF",g:"g3",hw:"<b>BT52</b> + RF-W202 / SW202 + RB01 ×2，ANC 四通道与整机测试",badge:"11 份 PDF",search:"蓝牙 RF BT52 RF-W202 SW202 RB01 ANC ENC WiFi 远距离 TBS-02Y"},
+ {id:"car",num:"08",name:"汽车声学 / 车机",g:"g3",hw:"<b>AD2536 / AD1000-8</b> + A2B 模块 + 负载箱，整车音效与功放老化",badge:"9 份 PDF",search:"汽车声学 车机 AD2536 AD1000-8 AMP68 A2B POLQA 老化 MIC-20"},
+ {id:"pcba",num:"12",name:"PCBA",g:"g3",hw:"<b>AD1000-8</b> + BT168 ×4 + 五合一电流测试套件；多功能方案含 AD2122 / AD2502",badge:"",search:"PCBA TWS 一拖四 AD1000-8 AD2122 AD2502 BT168 电流 远距离 衰减器"},
+ {id:"noise",num:"10",name:"噪音测试",g:"g4",hw:"<b>AD1000-4 / TMA-60</b> + MIC-20 为主，含加速度传感器与定制隔音箱",badge:"28 份 PDF",search:"噪音 噪声 NVH 风扇 电动牙刷 对讲机 摄像头 吉他 机器人 蜂鸣器 马达 AD1000 MIC-20"},
+ {id:"motor",num:"13",name:"电机 / 电源异常音",g:"g4",hw:"<b>AD2122 / AD1000</b> + MIC-20 / GRAS 测量麦克风 + 定制隔音箱（电源文件夹）",badge:"",search:"电机 电源 异常音 噪声 AD2122 AD1000 MIC-20 GRAS 程控电源"},
+ {id:"laptop",num:"15",name:"笔记本按压噪声",g:"g4",hw:"<b>AD1000-4</b> + MIC-20 ×2 + AD325 + 定制隔音箱 + 按压模组 + 电控系统",badge:"",search:"笔记本 按压噪声 AD1000-4 MIC-20 AD325"},
+ {id:"room",num:"17",name:"消声室 / 静音房",g:"g5",hw:"半 / 全消声室、静音房、听音室建筑与隔音工程方案 · 只含规格参数",badge:"23 份 PDF",search:"消声室 静音房 半消声室 听音室 隔音 本底噪声 自由场"},
+ {id:"mixer",num:"09",name:"调音台",g:"g6",hw:"<b>AD2588</b>（128 通道）/ AD2122 + SWR2755 切换开关 + 机器人 / CCD 视觉",badge:"V6.1 最新",search:"调音台 AD2588 AD2122 SWR3208 SW2755 X32 机器人 CCD"}
 ];
 </script>
 
@@ -312,7 +341,7 @@ smart:{ref:"智能产品文件夹共 <b>2 份</b>。",
   {name:"智能产品测试方案 AD2122",hw:"AD2122 + MIC-20×2 + AMP50-A + AB16 + MS588",testLines:["SPK：频响/失真/最大声压级","MIC：频响/失真/灵敏度","气密测试"]},
   {name:"联宝-成品测试方案 v1",hw:"AD2122 + MIC-20 + YAMAHA HS8 + AMP50-A + AD325",tests:"mic：频响/失真/灵敏度、Speak：频响/失真/R&B/声道平衡、产品mic回环"}
  ]}]},
-glasses:{ref:"智能眼镜文件夹共 <b>6 份</b>，去重 <b>5 个方案</b>。",
+glasses:{ref:"智能眼镜文件夹共 <b>6 份</b>，去重 <b>6 个方案</b>。",
  groups:[{name:"智能眼镜方案",sub:"单体来料 / 整机音频 / 音频+RF",sols:[
   {name:"单体来料测试方案书",hw:"TMA-60 + MS588 + MIC-20×2",testLines:["喇叭：FR/THD/灵敏度/阻抗/TS","MIC：FR/THD/灵敏度"]},
   {name:"智能眼镜音频测试方案（旧版）",hw:"AD1000 + AMP-50D + BT168×4 + MS588 + AB14",tests:"BT音频：FR/THD/R&B/灵敏度/RSSI"},
@@ -333,7 +362,7 @@ airtight:{ref:"气密性检测文件夹共 <b>1 份</b>技术规格书。",
 
 <script>
 /* LIBS 续：噪音 / 汽车 / 电源 / 笔记本 / 耳机 / 蓝牙 / 调音台 / 领夹麦 / 麦克风 / 消声室 */
-LIBS.noise={ref:"噪音测试文件夹共 <b>28 份</b>，去重约 <b>22 个方案</b>。带「最新」标的为同品类内版本号最高者。",
+LIBS.noise={ref:"噪音测试文件夹共 <b>28 份</b>，去重 <b>26 个方案</b>。带「最新」标的为同品类内版本号最高者。",
  groups:[
   {name:"电机 / NVH / 振动类",sub:"马达电机底噪与异常音",sols:[
    {name:"NVH噪音测试方案 v2",hw:"AD1000-4 + MIC-20×2 + AB24 + 交流变频电源",tests:"底噪声压级SPL、频谱FFT（马达电机）"},
@@ -375,7 +404,7 @@ LIBS.noise={ref:"噪音测试文件夹共 <b>28 份</b>，去重约 <b>22 个方
    {name:"笔记本&电池按压噪声测试 0703 V3.0",latest:true,hw:"AD1000-4 + MIC-20×4 + 定制隔音箱 + 按压治具 + 摇晃治具",tests:"噪声dB值、噪声曲线"}
   ]}
  ]};
-LIBS.car={ref:"汽车声学文件夹共 <b>9 份</b>，去重 <b>8 个方案</b>。",
+LIBS.car={ref:"汽车声学文件夹共 <b>9 份</b>，去重 <b>9 个方案</b>。",
  groups:[{name:"汽车声学方案",sub:"整车音效 / 汽车功放 / 车机功能 / 老化",sols:[
   {name:"扬声器/汽车功放/汽车整机音效三合一方案书",lines:[
     {k:"扬声器",v:"AD2122、AMP50-D、MIC-20、STB-01"},
@@ -405,7 +434,7 @@ LIBS.laptop={ref:"笔记本按压文件夹共 <b>1 份</b>方案书（同主题�
  groups:[{name:"笔记本按压方案",sub:"按压噪声",sols:[
   {name:"笔记本按压噪声测试方案 V1.0",hw:"AD1000-4 + MIC-20×2 + AD325 + 定制隔音箱 + 按压模组 + 电控系统",tests:"噪声dB值、噪声曲线"}
  ]}]};
-LIBS.earphone={ref:"耳机文件夹共 <b>21 份</b>，去重约 <b>15 个方案</b>（含头戴式耳机 V5，见「头戴式耳机」品类）。",
+LIBS.earphone={ref:"耳机文件夹共 <b>21 份</b>，去重 <b>16 个方案</b>（含头戴式耳机 V5，见「头戴式耳机」品类）。",
  groups:[
   {name:"音频测试（一拖多）",sub:"一拖二 / 一拖四 / 一拖八",sols:[
    {name:"TBS-08音频测试 2x4一拖八",hw:"AD1000-4 + BT168×4 + SW-8 + AB24×2 + NS65×2 + AD711×8 + MS588×2",tests:"一拖八音频测试"},
@@ -442,7 +471,7 @@ LIBS.earphone={ref:"耳机文件夹共 <b>21 份</b>，去重约 <b>15 个方案
    {name:"头戴耳机自动化包装线 V1.0",hw:"包装线",tests:"包装（非测试）"}
   ]}
  ]};
-LIBS.rf={ref:"蓝牙产品文件夹共 <b>11 份</b>，去重约 <b>8 个方案</b>。",
+LIBS.rf={ref:"蓝牙产品文件夹共 <b>11 份</b>，去重 <b>9 个方案</b>。",
  groups:[
   {name:"RF 射频测试",sub:"BR / EDR / BLE 射频指标",sols:[
    {name:"RF-02蓝牙射频测试方案书",hw:"BT52 + RF-W202 + RB01×2 + DDC1203 + TVCmeter",tests:"BR/EDR/BLE：输出功率/功率控制/载波漂移/单多时隙灵敏度/调制特性等 + 开机/工作电流"},
@@ -599,46 +628,161 @@ function renderDetail(cat){
   body.innerHTML=libHTML(lib);
   document.getElementById('detailRef').innerHTML=lib.ref;
 }
+/* ================= 方案索引：计数 / 全文搜索 / 设备反查 ================= */
+function solPlain(s){
+  var parts=[s.name];
+  if(s.hw){ if(Array.isArray(s.hw)){ s.hw.forEach(function(it){ parts.push(typeof it==='string'?it:it.t); }); } else parts.push(s.hw); }
+  if(s.hwText) parts.push(s.hwText);
+  if(s.lines) s.lines.forEach(function(L){ parts.push(L.k+' '+L.v); });
+  if(s.tests){ if(Array.isArray(s.tests)){ parts.push(s.tests.join(' ')); } else parts.push(s.tests); }
+  if(s.testLines) parts.push(s.testLines.join(' '));
+  return parts.join(' ');
+}
+var SOL_INDEX=[]; var CAT_COUNT={};
+function addLib(catId,lib){
+  if(!lib||!lib.groups) return;
+  var n=0;
+  lib.groups.forEach(function(g){ g.sols.forEach(function(s){ n++; var plain=solPlain(s); SOL_INDEX.push({cat:catId,name:s.name,text:plain.toLowerCase(),plain:plain}); }); });
+  CAT_COUNT[catId]=n;
+}
+addLib('speaker',SPEAKER);
+Object.keys(LIBS).forEach(function(id){ addLib(id,LIBS[id]); });
+function catById(id){ var f=null; CATS.forEach(function(c){ if(c.id===id) f=c; }); return f; }
+
 var catGrid=document.getElementById('catGrid');
 CATS.sort(function(a,b){return parseInt(a.num,10)-parseInt(b.num,10);});
 CATS.forEach(function(c){
   var b=document.createElement('button'); b.type='button';
   b.className='cat-card '+c.g+(c.hero?' hero':''); b.setAttribute('data-cat-id',c.id);
-  b.setAttribute('data-group',GROUPS[c.g]); b.setAttribute('data-search',(c.name+' '+c.search).toLowerCase());
+  var extra=''; SOL_INDEX.forEach(function(e){ if(e.cat===c.id) extra+=' '+e.text; });
+  b.setAttribute('data-group',GROUPS[c.g]); b.setAttribute('data-search',(c.name+' '+c.search).toLowerCase()+extra);
+  var foot='<span class="cat-foot">';
+  if(CAT_COUNT[c.id]) foot+='<span class="cat-count">'+CAT_COUNT[c.id]+' 个方案</span>';
+  if(c.badge) foot+='<span class="cat-badge">'+esc(c.badge)+'</span>';
+  foot+='<span class="cat-go">进入方案库 →</span></span>';
   b.innerHTML='<span class="cat-top"><span class="num">'+c.num+'</span><h2>'+esc(c.name)+'</h2><span class="cat-group">'+GROUPS[c.g]+'</span></span>'
-    +'<p class="cat-hw">'+c.hw+'</p>'
-    +'<span class="cat-foot"><span class="cat-go">进入方案库 →</span></span>';
-  b.addEventListener('click',function(){ showDetail(c.id); });
+    +'<p class="cat-hw">'+c.hw+'</p>'+foot;
+  b.addEventListener('click',function(){ goDetail(c.id); });
   catGrid.appendChild(b);
 });
+
+/* ================= 路由：#/cat/<id> 可分享，浏览器后退可返回 ================= */
 var viewHome=document.getElementById('viewHome'), viewDetail=document.getElementById('viewDetail');
-function showDetail(id){
-  var cat=null; CATS.forEach(function(c){ if(c.id===id) cat=c; });
-  if(!cat) return;
+var inNav=false, pendingTerm='';
+function goDetail(id,term){
+  inNav=true; pendingTerm=term||'';
+  var target='#/cat/'+id;
+  if(location.hash===target){ route(); } else location.hash=target;
+}
+function renderDetailView(cat){
   document.getElementById('detailTitle').textContent=cat.num+' · '+cat.name;
   document.getElementById('crumbPath').innerHTML='<b>'+esc(cat.name)+'</b> · '+GROUPS[cat.g];
   renderDetail(cat);
   viewHome.hidden=true; viewDetail.hidden=false;
-  window.scrollTo({top:0,behavior:'smooth'});
+  var dqEl=document.getElementById('dq');
+  dqEl.value=pendingTerm; pendingTerm='';
+  applyDetailFilter();
+  window.scrollTo(0,0);
 }
-function showHome(){ viewDetail.hidden=true; viewHome.hidden=false; window.scrollTo({top:0,behavior:'smooth'}); }
-document.getElementById('backBtn').addEventListener('click',showHome);
-document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !viewDetail.hidden) showHome(); });
-document.querySelectorAll('[data-jump]').forEach(function(btn){ btn.addEventListener('click',function(){ showDetail(btn.getAttribute('data-jump')); }); });
+function renderHomeView(){ viewDetail.hidden=true; viewHome.hidden=false; }
+function route(){
+  var m=/^#\/cat\/([a-z0-9]+)$/.exec(location.hash||'');
+  var cat=m?catById(m[1]):null;
+  if(cat) renderDetailView(cat); else renderHomeView();
+}
+window.addEventListener('hashchange',route);
+document.getElementById('backBtn').addEventListener('click',function(){
+  if(inNav){ inNav=false; history.back(); }
+  else { history.replaceState(null,'','#/'); route(); }
+});
+document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !viewDetail.hidden) document.getElementById('backBtn').click(); });
+document.querySelectorAll('[data-jump]').forEach(function(btn){ btn.addEventListener('click',function(){ goDetail(btn.getAttribute('data-jump')); }); });
 
-/* 一级搜索 + 分组筛选 */
+/* ================= 详情页内搜索 ================= */
+var dq=document.getElementById('dq');
+function applyDetailFilter(){
+  var term=(dq.value||'').trim().toLowerCase();
+  var total=0, shown=0;
+  var groups=document.querySelectorAll('#detailBody .subgroup');
+  if(groups.length){
+    Array.prototype.forEach.call(groups,function(sg){
+      var vis=0;
+      sg.querySelectorAll('.sol').forEach(function(sol){
+        total++;
+        var show=!term || sol.textContent.toLowerCase().indexOf(term)!==-1;
+        sol.style.display=show?'':'none'; if(show){ vis++; shown++; }
+      });
+      sg.style.display=vis?'':'none';
+      var cnt=sg.querySelector('.sg-count');
+      if(cnt) cnt.textContent= term? ('命中 '+vis+' 个') : (vis+' 个方案');
+    });
+  } else {
+    document.querySelectorAll('#detailBody .sol').forEach(function(sol){
+      total++;
+      var show=!term || sol.textContent.toLowerCase().indexOf(term)!==-1;
+      sol.style.display=show?'':'none'; if(show) shown++;
+    });
+  }
+  var dc=document.getElementById('detailCount');
+  dc.textContent= total? (term? ('命中 '+shown+' / '+total+' 个方案') : ('共 '+total+' 个方案')) : '';
+}
+dq.addEventListener('input',applyDetailFilter);
+
+/* ================= 一级搜索 + 分组筛选 + 方案级结果 ================= */
 var q=document.getElementById('q'), empty=document.getElementById('empty');
 var chips=Array.prototype.slice.call(document.querySelectorAll('.fchip')); var currentFilter='';
+var solResults=document.getElementById('solResults'), resList=document.getElementById('resList'), resCount=document.getElementById('resCount');
 function apply(){
   var term=(q.value||'').trim().toLowerCase(); var visible=0;
   Array.prototype.forEach.call(catGrid.children,function(card){
     var show=(!term || card.getAttribute('data-search').indexOf(term)!==-1) && (!currentFilter || card.getAttribute('data-group')===currentFilter);
     card.style.display=show?'':'none'; if(show) visible++;
   });
-  empty.classList.toggle('show',visible===0);
+  resList.innerHTML='';
+  if(term){
+    var hits=SOL_INDEX.filter(function(e){
+      if(e.text.indexOf(term)===-1) return false;
+      if(currentFilter){ var c=catById(e.cat); if(!c || GROUPS[c.g]!==currentFilter) return false; }
+      return true;
+    });
+    resCount.textContent='命中 '+hits.length+' 个方案';
+    hits.slice(0,80).forEach(function(e){
+      var c=catById(e.cat);
+      var snippet=e.plain.indexOf(e.name)===0? e.plain.slice(e.name.length).replace(/^[\s·、，+：:]+/,'') : e.plain;
+      if(snippet.length>110) snippet=snippet.slice(0,110)+'…';
+      var b=document.createElement('button'); b.type='button'; b.className='res-item';
+      b.innerHTML='<b>'+esc(e.name)+'</b><span><span class="res-cat">'+esc(c?c.name:e.cat)+'</span> · '+esc(snippet)+'</span>';
+      b.addEventListener('click',function(){ goDetail(e.cat, term); });
+      resList.appendChild(b);
+    });
+    solResults.hidden=hits.length===0;
+    empty.classList.toggle('show',visible===0 && hits.length===0);
+  } else {
+    solResults.hidden=true;
+    empty.classList.toggle('show',visible===0);
+  }
 }
 q.addEventListener('input',apply);
 chips.forEach(function(ch){ ch.addEventListener('click',function(){ chips.forEach(function(c){c.classList.remove('active')}); ch.classList.add('active'); currentFilter=ch.getAttribute('data-filter')||''; apply(); }); });
+
+/* ================= 按设备反查 ================= */
+var DEVICES=["MIC-20","MS588","AD711","BT52","BT168","AD1000-4","AD1000-8","AD2122","AD2504","AD2536","TMA-60","AMP50","RB01","AB14","AD8319","DDC1203"];
+var devGrid=document.getElementById('devGrid');
+DEVICES.forEach(function(d){
+  var dl=d.toLowerCase(), n=0;
+  SOL_INDEX.forEach(function(e){ if(e.text.indexOf(dl)!==-1) n++; });
+  if(!n) return;
+  var b=document.createElement('button'); b.type='button'; b.className='dev-chip';
+  b.innerHTML=esc(d)+' <span>· '+n+' 个方案</span>';
+  b.addEventListener('click',function(){
+    chips.forEach(function(c2){ c2.classList.toggle('active',(c2.getAttribute('data-filter')||'')===''); });
+    currentFilter=''; q.value=d; apply();
+    solResults.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+  devGrid.appendChild(b);
+});
+
+route();
 </script>
 </body>
 </html>
