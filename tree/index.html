@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="light" />
 <link rel="icon" href="data:," />
-<title>音频测试方案 · 产品大类与方案库</title>
+<title>音频测试方案库</title>
 <style>
 :root{
   --bg:#ffffff; --surface:#ffffff; --surface2:#f4f4f3; --ink:#141412; --muted:#5d5d58; --line:#e3e3e0; --line2:#c6c6c1;
@@ -33,7 +33,9 @@ h1 .dot{color:var(--accent)}
 .search:focus-within svg{color:var(--accent)}
 .search input{border:0;outline:0;background:transparent;width:100%;color:var(--ink);font-size:15px;min-height:44px}
 .search input::placeholder{color:var(--muted)}
-.filters{max-width:1180px;margin:0 auto;padding:10px 20px 14px;display:flex;gap:8px;flex-wrap:wrap}
+.filters-shell{max-width:1180px;margin:0 auto;position:relative}
+.filters{padding:10px 20px 14px;display:flex;gap:8px;flex-wrap:wrap}
+.filters-more{display:none}
 .filters span{font-size:13px;color:var(--muted);align-self:center;margin-right:2px}
 .fchip{border:1px solid var(--line2);background:var(--surface);border-radius:4px;padding:7px 13px;font-size:13px;font-weight:600;cursor:pointer;min-height:36px;color:var(--chip-ink);transition:border-color .15s ease,background .15s ease,color .15s ease}
 .fchip:hover{border-color:var(--accent);color:var(--accent-deep)}
@@ -129,9 +131,40 @@ footer strong{color:var(--ink)}
 .detail-search{flex:1 1 200px;max-width:430px;margin-left:auto;min-height:42px;padding:0 12px}
 .detail-search input{min-height:40px;font-size:14px}
 .detail-count{font-size:12.5px;font-weight:700;color:var(--accent-deep);white-space:nowrap}
+/* --- 本轮优化：热门角标 / 排序 / 设备标签云 / 高亮 / 目录 / 次级区 --- */
+.hot-badge{flex:none;font-size:11.5px;font-weight:800;letter-spacing:.04em;background:#b42318;color:#fff;border-radius:999px;padding:3px 8px;white-space:nowrap;margin-top:4px}
+.sort-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.sort-bar span{font-size:13px;color:var(--muted);font-weight:700}
+.sort-btn{border:1px solid var(--line2);background:var(--surface);border-radius:999px;padding:6px 13px;font-size:13px;font-weight:700;cursor:pointer;min-height:36px;color:var(--ink)}
+.sort-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.secondary-zone{margin-top:34px;border-top:2px solid var(--ink);padding-top:8px}
+.secondary-zone>h2{font-size:15px;letter-spacing:.06em;color:var(--muted);margin:14px 0 4px;font-weight:800}
+.secondary-zone .index{margin-top:16px;background:var(--surface2)}
+.dev-grid{gap:9px;align-items:center}
+.dev-chip{border-radius:999px}
+.dev-chip .dev-n{font-weight:800;color:var(--accent-deep)}
+.dev-chip.tier-high{background:var(--accent);border-color:var(--accent);color:#fff;font-size:15px;padding:10px 16px}
+.dev-chip.tier-high .dev-n,.dev-chip.tier-high span{color:#fff}
+.dev-chip.tier-high:hover{background:var(--accent-deep);color:#fff}
+.dev-chip.tier-mid{background:var(--accent-soft);border-color:var(--accent);font-size:14px;padding:9px 14px}
+.dev-chip.tier-low{font-size:13px;padding:7px 11px;opacity:.92}
+mark{background:#ffe58a;color:#141412;padding:0 2px;border-radius:2px;font-weight:700}
+.res-empty{border:1px dashed var(--line2);border-radius:4px;padding:18px;background:#fff;color:var(--muted);line-height:1.7;font-size:14px}
+.res-empty b{color:var(--ink)}
+.clear-btn{margin-top:10px;border:1px solid var(--line2);background:#fff;border-radius:4px;padding:7px 13px;font-weight:700;cursor:pointer;min-height:36px}
+.toc{margin-top:18px;border:1px solid var(--line);border-radius:4px;padding:13px 15px;background:var(--surface2)}
+.toc b{display:block;font-size:12.5px;letter-spacing:.06em;margin-bottom:8px}
+.toc nav{display:flex;flex-wrap:wrap;gap:7px}
+.toc a{font-size:13px;font-weight:700;color:var(--accent-deep);text-decoration:none;border:1px solid var(--line2);background:#fff;border-radius:999px;padding:6px 11px}
+.toc a:hover{text-decoration:underline}
+.to-top{position:fixed;right:16px;bottom:16px;z-index:40;border:1px solid var(--ink);background:var(--ink);color:#fff;border-radius:999px;padding:10px 15px;font-weight:800;font-size:13.5px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.18)}
+.to-top[hidden]{display:none!important}
+#detailTitle:focus{outline:2px solid var(--accent);outline-offset:3px}
+.filters{scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
 @media (max-width:900px){ .cat-grid{grid-template-columns:1fr 1fr} }
-@media (max-width:760px){ .sol-grid{grid-template-columns:1fr} .index-grid{grid-template-columns:1fr 1fr} .top{padding-top:26px} .toolbar-inner{padding:10px 14px 2px} .filters{padding-left:14px;padding-right:14px} .wrap,.top,footer{padding-left:14px;padding-right:14px} .detail-bar{margin:0 -14px;padding:10px 14px} }
-@media (max-width:560px){ .cat-grid{grid-template-columns:1fr} .index-grid{grid-template-columns:1fr} .cat-top{flex-wrap:wrap} .cat-group{margin-left:38px;margin-top:0} }
+@media (max-width:760px){ .sol-grid{grid-template-columns:1fr} .index-grid{grid-template-columns:1fr 1fr} .top{padding-top:26px} .toolbar-inner{padding:10px 14px 2px} .filters{padding-left:14px;padding-right:34px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:12px} .filters .fchip{flex:none;white-space:nowrap} .filters span{flex:none} .filters-more{display:flex;align-items:center;justify-content:flex-end;position:absolute;right:0;top:0;bottom:0;width:46px;padding-right:7px;background:linear-gradient(to right,rgba(255,255,255,0),var(--bg) 58%);color:var(--accent-deep);font-size:19px;font-weight:800;pointer-events:none;transition:opacity .2s ease} .filters-more.hide{opacity:0} .wrap,.top,footer{padding-left:14px;padding-right:14px} .detail-bar{margin:0 -14px;padding:10px 14px} .cat-group{font-size:12px;padding:5px 8px;white-space:normal;line-height:1.35;text-align:center} }
+@media (max-width:560px){ .cat-grid{grid-template-columns:1fr} .index-grid{grid-template-columns:1fr} .cat-top{flex-wrap:wrap} .cat-group{margin-left:0;margin-top:0} .sort-bar{margin-bottom:10px} }
 @media print{ .toolbar,.detail-bar,.back{display:none} body{background:#fff} }
 @media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto!important;transition:none!important} }
 </style>
@@ -140,7 +173,8 @@ footer strong{color:var(--ink)}
 <body>
 <header class="top">
   <div class="eyebrow">Audiobus · 奥普新音频测试</div>
-  <h1>音频测试方案<br>产品大类 · 方案库<span class="dot">.</span></h1>
+  <h1>音频测试方案库<span class="dot">.</span></h1>
+  <p style="margin:10px 0 0;color:var(--muted);font-size:14.5px;line-height:1.6">先搜关键词，或直接选一个产品大类进入方案库。</p>
 </header>
 
 <!-- ============ 一级界面 ============ -->
@@ -152,6 +186,7 @@ footer strong{color:var(--ink)}
         <input id="q" type="search" placeholder="搜方案名 / 品类 / 设备 / 可测项目，如：异常音 / AD1000 / BT52…" aria-label="搜索方案、品类与设备">
       </label>
     </div>
+    <div class="filters-shell">
     <div class="filters" id="filters">
       <span>大类分组：</span>
       <button class="fchip active" data-filter="">全部</button>
@@ -162,34 +197,40 @@ footer strong{color:var(--ink)}
       <button class="fchip" data-filter="声学环境">声学环境</button>
       <button class="fchip" data-filter="音频设备">音频设备</button>
     </div>
+    <div class="filters-more" id="filtersMore" aria-hidden="true">››</div>
+    </div>
   </div>
 
   <main class="wrap">
+    <div class="sort-bar" aria-label="品类排序"><span>品类排序：</span><button type="button" class="sort-btn active" data-sort="num">按编号 01–18</button><button type="button" class="sort-btn" data-sort="count">按方案数（多→少）</button></div>
     <div class="cat-grid" id="catGrid"></div>
     <div class="empty" id="empty">没找到匹配的产品大类。<br>换个关键词试试，比如 扬声器、耳机、AD1000，或者点「全部」清除筛选。</div>
 
     <section class="index" id="solResults" hidden aria-label="方案搜索结果">
-      <div class="res-head"><h2>匹配的方案</h2><span class="res-count" id="resCount"></span></div>
+      <div class="res-head"><h2>匹配的方案</h2><span class="res-count" id="resCount"></span><span style="font-size:12.5px;color:var(--muted)">已按相关度排序 · 名称命中优先，其次设备 / 可测项目</span></div>
       <div class="res-list" id="resList"></div>
+      <div class="res-empty" id="resEmpty" hidden></div>
     </section>
 
+    <div class="secondary-zone" aria-label="更多查找方式">
+    <h2>更多查找方式</h2>
     <section class="index" aria-label="按设备反查">
       <h2>按设备反查</h2>
-      <p>手上有哪台设备，就点哪台——直接列出用到它的全部方案，点方案名进对应品类的方案库。</p>
+      <p>标签越大、颜色越深，方案越多（已按方案数从多到少排列）。手上有哪台设备，就点哪台——直接列出用到它的全部方案。</p>
       <div class="dev-grid" id="devGrid"></div>
     </section>
 
     <section class="index" aria-label="方案最多的品类">
-      <h2>方案最多的品类</h2>
+      <h2>方案最多的品类 · 热门</h2>
       <div class="index-grid">
         <button class="index-item" data-jump="noise"><b>噪音测试 · 26 个方案</b><span>NVH / 风扇 / 电动牙刷 / 对讲机 / 机器人 / 笔记本按压</span></button>
         <button class="index-item" data-jump="speaker"><b>扬声器 / 音箱 · 22 个方案</b><span>常规 / 车载喇叭 / 音箱 / 会议 / 上料机五类全收录</span></button>
         <button class="index-item" data-jump="earphone"><b>耳机 · 16 个方案</b><span>一拖八 / 单站自动化 v3 / 颈挂全流程 / PEAK4</span></button>
         <button class="index-item" data-jump="mic"><b>麦克风 · 13 个方案</b><span>MEMS / A2B / 驻极体 / 模组 V3</span></button>
         <button class="index-item" data-jump="amp"><b>功放 · 10 个方案</b><span>成品声学 / PCBA / 保伦老化 V5</span></button>
-        <button class="index-item" data-jump="car"><b>汽车声学 · 9 个方案</b><span>三合一 / 功放老化 / 车机功能 / V2 最新</span></button>
       </div>
     </section>
+    </div>
   </main>
 </div>
 
@@ -208,11 +249,14 @@ footer strong{color:var(--ink)}
       </div>
     </div>
     <div class="detail-head">
-      <h2 id="detailTitle"></h2>
+      <h2 id="detailTitle" tabindex="-1"></h2>
       <p class="ref" id="detailRef"></p>
     </div>
+    <div class="toc" id="detailToc" hidden><b>本页目录</b><nav id="detailTocNav" aria-label="方案分组目录"></nav></div>
     <div id="detailBody"></div>
+    <div class="res-empty" id="detailEmpty" hidden style="margin-top:16px"></div>
   </main>
+  <button type="button" class="to-top" id="toTop" hidden>↑ 返回顶部</button>
 </div>
 
 <footer>
@@ -638,6 +682,44 @@ function solPlain(s){
   if(s.testLines) parts.push(s.testLines.join(' '));
   return parts.join(' ');
 }
+/* 设备型号匹配：横杠写法视为同一型号（AMP50＝AMP-50、MIC-20＝MIC20、MS588＝MS-588、BT52＝BT-52），
+   但型号尾数必须完整一致——AD1000-8 不含 AD1000-88。AMP50 允许带单个字母后缀（AMP50-A / AMP50-D / AMP-50A）。
+   例外：TMA-60 只认带横杠的原文写法；无横杠的 TMA60 是否同一台尚未确认，不并入计数。 */
+var STRICT_DEVICES={'TMA-60':true};
+function deviceNorm(s){ return String(s).toUpperCase().replace(/-/g,''); }
+function matchesDevice(plain,device){
+  if(STRICT_DEVICES[device]){
+    var raw=String(plain).toUpperCase().match(/[A-Z]+-?[0-9]+[A-Z]*/g)||[];
+    for(var i=0;i<raw.length;i++){ if(raw[i]===device) return true; }
+    return false;
+  }
+  var dev=deviceNorm(device);
+  var tokens=String(plain).toUpperCase().replace(/-/g,'').match(/[A-Z]+[0-9]+[A-Z]*/g)||[];
+  for(var i=0;i<tokens.length;i++){
+    var tok=tokens[i];
+    if(tok===dev) return true;
+    if(tok.length===dev.length+1 && tok.indexOf(dev)===0 && /[0-9]/.test(dev.charAt(dev.length-1)) && /[A-Z]/.test(tok.charAt(tok.length-1))) return true;
+  }
+  return false;
+}
+function deviceForTerm(term){
+  if(typeof DEVICES==='undefined') return null;
+  var n=deviceNorm(term), f=null;
+  DEVICES.forEach(function(d){
+    if(deviceNorm(d)!==n) return;
+    if(STRICT_DEVICES[d] && String(term).toUpperCase()!==d) return; /* 搜 TMA60 走原文文本匹配，不并入 TMA-60 */
+    f=d;
+  });
+  return f;
+}
+function textMatchesTerm(text,term){
+  if(!term) return true;
+  var dev=deviceForTerm(term);
+  if(dev) return matchesDevice(text,dev);
+  var t=String(text).toLowerCase();
+  if(t.indexOf(term)!==-1) return true;
+  return t.replace(/-/g,'').indexOf(term.replace(/-/g,''))!==-1;
+}
 var SOL_INDEX=[]; var CAT_COUNT={};
 function addLib(catId,lib){
   if(!lib||!lib.groups) return;
@@ -651,40 +733,73 @@ function catById(id){ var f=null; CATS.forEach(function(c){ if(c.id===id) f=c; }
 
 var catGrid=document.getElementById('catGrid');
 CATS.sort(function(a,b){return parseInt(a.num,10)-parseInt(b.num,10);});
+var HOT_IDS={}; Object.keys(CAT_COUNT).map(function(id){return {id:id,n:CAT_COUNT[id]};}).sort(function(a,b){return b.n-a.n;}).slice(0,5).forEach(function(x){ HOT_IDS[x.id]=true; });
 CATS.forEach(function(c){
   var b=document.createElement('button'); b.type='button';
   b.className='cat-card '+c.g+(c.hero?' hero':''); b.setAttribute('data-cat-id',c.id);
+  b.setAttribute('data-num',c.num); b.setAttribute('data-count',CAT_COUNT[c.id]||0);
   var extra=''; SOL_INDEX.forEach(function(e){ if(e.cat===c.id) extra+=' '+e.text; });
   b.setAttribute('data-group',GROUPS[c.g]); b.setAttribute('data-search',(c.name+' '+c.search).toLowerCase()+extra);
   var foot='<span class="cat-foot">';
   if(CAT_COUNT[c.id]) foot+='<span class="cat-count">'+CAT_COUNT[c.id]+' 个方案</span>';
   if(c.badge) foot+='<span class="cat-badge">'+esc(c.badge)+'</span>';
   foot+='<span class="cat-go">进入方案库 →</span></span>';
-  b.innerHTML='<span class="cat-top"><span class="num">'+c.num+'</span><h2>'+esc(c.name)+'</h2><span class="cat-group">'+GROUPS[c.g]+'</span></span>'
+  var hot=HOT_IDS[c.id]?'<span class="hot-badge">热门</span>':'';
+  b.innerHTML='<span class="cat-top"><span class="num">'+c.num+'</span><h2>'+esc(c.name)+'</h2>'+hot+'<span class="cat-group">'+GROUPS[c.g]+'</span></span>'
     +'<p class="cat-hw">'+c.hw+'</p>'+foot;
-  b.addEventListener('click',function(){ goDetail(c.id); });
+  b.addEventListener('click',function(){ lastTriggerId=c.id; lastTriggerEl=b; goDetail(c.id); });
   catGrid.appendChild(b);
 });
+document.querySelectorAll('.sort-btn').forEach(function(btn){ btn.addEventListener('click',function(){
+  document.querySelectorAll('.sort-btn').forEach(function(x){x.classList.remove('active')}); btn.classList.add('active');
+  var mode=btn.getAttribute('data-sort'); var cards=Array.prototype.slice.call(catGrid.children);
+  cards.sort(function(a,b){ return mode==='count' ? (parseInt(b.getAttribute('data-count'),10)-parseInt(a.getAttribute('data-count'),10) || parseInt(a.getAttribute('data-num'),10)-parseInt(b.getAttribute('data-num'),10)) : (parseInt(a.getAttribute('data-num'),10)-parseInt(b.getAttribute('data-num'),10)); });
+  cards.forEach(function(el){ catGrid.appendChild(el); });
+}); });
 
 /* ================= 路由：#/cat/<id> 可分享，浏览器后退可返回 ================= */
 var viewHome=document.getElementById('viewHome'), viewDetail=document.getElementById('viewDetail');
-var inNav=false, pendingTerm='';
+var inNav=false, pendingTerm='', lastTriggerId='', lastTriggerEl=null, detailSnapshot='';
 function goDetail(id,term){
   inNav=true; pendingTerm=term||'';
   var target='#/cat/'+id;
   if(location.hash===target){ route(); } else location.hash=target;
 }
+function buildToc(){
+  var toc=document.getElementById('detailToc'), nav=document.getElementById('detailTocNav');
+  var heads=document.querySelectorAll('#detailBody .subgroup');
+  nav.innerHTML='';
+  if(heads.length<1){ toc.hidden=true; return; }
+  Array.prototype.forEach.call(heads,function(sg,i){
+    sg.id='sg-'+i;
+    var h=sg.querySelector('.subgroup-head h3'); if(!h) return;
+    var a=document.createElement('a'); a.href='#sg-'+i; a.textContent=h.textContent;
+    a.addEventListener('click',function(e){ e.preventDefault(); var target=document.getElementById('sg-'+i); if(!target) return; target.scrollIntoView({behavior:'smooth',block:'start'}); var hh=target.querySelector('h3'); if(hh){ hh.setAttribute('tabindex','-1'); hh.focus({preventScroll:true}); } });
+    nav.appendChild(a);
+  });
+  toc.hidden=nav.children.length<1;
+}
 function renderDetailView(cat){
   document.getElementById('detailTitle').textContent=cat.num+' · '+cat.name;
   document.getElementById('crumbPath').innerHTML='<b>'+esc(cat.name)+'</b> · '+GROUPS[cat.g];
   renderDetail(cat);
+  buildToc();
+  detailSnapshot=document.getElementById('detailBody').innerHTML;
   viewHome.hidden=true; viewDetail.hidden=false;
   var dqEl=document.getElementById('dq');
   dqEl.value=pendingTerm; pendingTerm='';
   applyDetailFilter();
   window.scrollTo(0,0);
+  var t=document.getElementById('detailTitle'); if(t) t.focus({preventScroll:true});
+  updateToTop();
 }
-function renderHomeView(){ viewDetail.hidden=true; viewHome.hidden=false; }
+function renderHomeView(){ viewDetail.hidden=true; viewHome.hidden=false; document.getElementById('toTop').hidden=true;
+  if(lastTriggerId){ var el=document.querySelector('[data-cat-id="'+lastTriggerId+'"]'); if(el){ el.focus({preventScroll:true}); } }
+}
+var toTopBtn=document.getElementById('toTop');
+function updateToTop(){ if(!toTopBtn) return; toTopBtn.hidden = viewDetail.hidden || window.scrollY<500; }
+window.addEventListener('scroll',updateToTop,{passive:true});
+if(toTopBtn) toTopBtn.addEventListener('click',function(){ window.scrollTo({top:0,behavior:'smooth'}); var t=document.getElementById('detailTitle'); if(t) t.focus({preventScroll:true}); });
 function route(){
   var m=/^#\/cat\/([a-z0-9]+)$/.exec(location.hash||'');
   var cat=m?catById(m[1]):null;
@@ -696,12 +811,38 @@ document.getElementById('backBtn').addEventListener('click',function(){
   else { history.replaceState(null,'','#/'); route(); }
 });
 document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !viewDetail.hidden) document.getElementById('backBtn').click(); });
-document.querySelectorAll('[data-jump]').forEach(function(btn){ btn.addEventListener('click',function(){ goDetail(btn.getAttribute('data-jump')); }); });
+document.querySelectorAll('[data-jump]').forEach(function(btn){ btn.addEventListener('click',function(){ lastTriggerId=btn.getAttribute('data-jump'); lastTriggerEl=btn; goDetail(lastTriggerId); }); });
 
 /* ================= 详情页内搜索 ================= */
 var dq=document.getElementById('dq');
+function highlightDetail(term){
+  if(!term) return;
+  var variants=[term]; var dh=term.replace(/-/g,'');
+  if(dh && dh!==term) variants.push(dh);
+  var pat=variants.map(function(v){return v.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}).join('|');
+  var re=new RegExp('('+pat+')','ig');
+  var body=document.getElementById('detailBody');
+  var walker=document.createTreeWalker(body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
+    if(!n.nodeValue || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+    var el=n.parentElement; if(!el) return NodeFilter.FILTER_REJECT;
+    var sol=el.closest('.sol'); if(sol && sol.style.display==='none') return NodeFilter.FILTER_REJECT;
+    return NodeFilter.FILTER_ACCEPT;
+  }});
+  var nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(function(n){
+    re.lastIndex=0; if(!re.test(n.nodeValue)) return;
+    var parts=n.nodeValue.split(re), frag=document.createDocumentFragment();
+    parts.forEach(function(p,i){
+      if(i%2===1){ var mk=document.createElement('mark'); mk.textContent=p; frag.appendChild(mk); }
+      else if(p) frag.appendChild(document.createTextNode(p));
+    });
+    n.parentNode.replaceChild(frag,n);
+  });
+}
 function applyDetailFilter(){
   var term=(dq.value||'').trim().toLowerCase();
+  var body=document.getElementById('detailBody');
+  if(detailSnapshot) body.innerHTML=detailSnapshot;
   var total=0, shown=0;
   var groups=document.querySelectorAll('#detailBody .subgroup');
   if(groups.length){
@@ -709,7 +850,7 @@ function applyDetailFilter(){
       var vis=0;
       sg.querySelectorAll('.sol').forEach(function(sol){
         total++;
-        var show=!term || sol.textContent.toLowerCase().indexOf(term)!==-1;
+        var show=!term || textMatchesTerm(sol.textContent,term);
         sol.style.display=show?'':'none'; if(show){ vis++; shown++; }
       });
       sg.style.display=vis?'':'none';
@@ -719,61 +860,110 @@ function applyDetailFilter(){
   } else {
     document.querySelectorAll('#detailBody .sol').forEach(function(sol){
       total++;
-      var show=!term || sol.textContent.toLowerCase().indexOf(term)!==-1;
+      var show=!term || textMatchesTerm(sol.textContent,term);
       sol.style.display=show?'':'none'; if(show) shown++;
     });
   }
+  if(term && shown>0) highlightDetail(term);
   var dc=document.getElementById('detailCount');
   dc.textContent= total? (term? ('命中 '+shown+' / '+total+' 个方案') : ('共 '+total+' 个方案')) : '';
+  var de=document.getElementById('detailEmpty');
+  if(de){
+    if(term && total>0 && shown===0){
+      de.hidden=false;
+      de.innerHTML='<b>在本品类内没有找到与「'+esc(term)+'」匹配的方案。</b><br>换个关键词试试（设备型号带不带横杠都可以），或清除搜索查看本品类全部 '+total+' 个方案。<br><button type="button" class="clear-btn" id="clearDetailBtn">清除搜索</button>';
+      var cdb=document.getElementById('clearDetailBtn');
+      if(cdb) cdb.addEventListener('click',function(){ dq.value=''; applyDetailFilter(); dq.focus(); });
+    } else de.hidden=true;
+  }
 }
 dq.addEventListener('input',applyDetailFilter);
 
 /* ================= 一级搜索 + 分组筛选 + 方案级结果 ================= */
 var q=document.getElementById('q'), empty=document.getElementById('empty');
 var chips=Array.prototype.slice.call(document.querySelectorAll('.fchip')); var currentFilter='';
-var solResults=document.getElementById('solResults'), resList=document.getElementById('resList'), resCount=document.getElementById('resCount');
+var solResults=document.getElementById('solResults'), resList=document.getElementById('resList'), resCount=document.getElementById('resCount'), resEmpty=document.getElementById('resEmpty');
+function hlText(text,term){
+  var s=esc(text); if(!term) return s;
+  var variants=[term,term.replace(/-/g,'')]; var out=s;
+  variants.forEach(function(v){ if(!v) return; var re=new RegExp('('+v.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'); out=out.replace(re,'<mark>$1</mark>'); });
+  return out;
+}
+function relevance(e,term,devTerm){
+  var score=0, name=e.name.toLowerCase(), plain=e.plain.toLowerCase();
+  if(name===term) score+=120; else if(name.indexOf(term)===0) score+=90; else if(name.indexOf(term)!==-1) score+=70;
+  if(devTerm && matchesDevice(e.plain,devTerm)) score+=60;
+  if(plain.indexOf(term)!==-1) score+=20;
+  if(plain.replace(/-/g,'').indexOf(term.replace(/-/g,''))!==-1) score+=10;
+  var idx=plain.indexOf(term); if(idx>-1) score+=Math.max(0,15-idx/20);
+  return score;
+}
 function apply(){
   var term=(q.value||'').trim().toLowerCase(); var visible=0;
+  var devTerm=term?deviceForTerm(term):null;
   Array.prototype.forEach.call(catGrid.children,function(card){
-    var show=(!term || card.getAttribute('data-search').indexOf(term)!==-1) && (!currentFilter || card.getAttribute('data-group')===currentFilter);
+    var show;
+    if(!term) show=true;
+    else if(devTerm){
+      var cid=card.getAttribute('data-cat-id');
+      show=SOL_INDEX.some(function(e){ return e.cat===cid && matchesDevice(e.plain,devTerm); });
+    }
+    else show=textMatchesTerm(card.getAttribute('data-search')||'',term);
+    show=show && (!currentFilter || card.getAttribute('data-group')===currentFilter);
     card.style.display=show?'':'none'; if(show) visible++;
   });
   resList.innerHTML='';
   if(term){
     var hits=SOL_INDEX.filter(function(e){
-      if(e.text.indexOf(term)===-1) return false;
+      if(!textMatchesTerm(e.plain,term)) return false;
       if(currentFilter){ var c=catById(e.cat); if(!c || GROUPS[c.g]!==currentFilter) return false; }
       return true;
     });
+    hits=hits.map(function(e){ return {e:e,s:relevance(e,term,devTerm)}; }).sort(function(a,b){ return b.s-a.s || a.e.name.localeCompare(b.e.name,'zh'); }).map(function(x){return x.e;});
     resCount.textContent='命中 '+hits.length+' 个方案';
+    if(resEmpty){ if(hits.length===0){ resEmpty.hidden=false; resEmpty.innerHTML='<b>没有找到与「'+esc(term)+'」匹配的方案。</b><br>试试换个写法：设备型号带不带横杠都可以（如 AMP50 / AMP-50），也可以搜可测项目（如 异常音、THD），或清除筛选看全部。<br><button type="button" class="clear-btn" id="clearSearchBtn">清除搜索</button>'; var cb=document.getElementById('clearSearchBtn'); if(cb) cb.addEventListener('click',function(){ q.value=''; chips.forEach(function(c2){c2.classList.toggle('active',(c2.getAttribute('data-filter')||'')==='');}); currentFilter=''; apply(); q.focus(); }); } else resEmpty.hidden=true; }
     hits.slice(0,80).forEach(function(e){
       var c=catById(e.cat);
-      var snippet=e.plain.indexOf(e.name)===0? e.plain.slice(e.name.length).replace(/^[\s·、，+：:]+/,'') : e.plain;
-      if(snippet.length>110) snippet=snippet.slice(0,110)+'…';
+      var rest=e.plain.indexOf(e.name)===0? e.plain.slice(e.name.length).replace(/^[\s·、，+：:]+/,'') : e.plain;
+      var low=rest.toLowerCase(), pos=low.indexOf(term); if(pos===-1) pos=low.replace(/-/g,'').indexOf(term.replace(/-/g,''));
+      var snippet=rest; if(pos>30) snippet='…'+rest.slice(Math.max(0,pos-28));
+      if(snippet.length>120) snippet=snippet.slice(0,120)+'…';
       var b=document.createElement('button'); b.type='button'; b.className='res-item';
-      b.innerHTML='<b>'+esc(e.name)+'</b><span><span class="res-cat">'+esc(c?c.name:e.cat)+'</span> · '+esc(snippet)+'</span>';
-      b.addEventListener('click',function(){ goDetail(e.cat, term); });
+      b.innerHTML='<b>'+hlText(e.name,term)+'</b><span><span class="res-cat">'+esc(c?c.name:e.cat)+'</span> · '+hlText(snippet,term)+'</span>';
+      b.addEventListener('click',function(){ lastTriggerId=e.cat; goDetail(e.cat, term); });
       resList.appendChild(b);
     });
-    solResults.hidden=hits.length===0;
-    empty.classList.toggle('show',visible===0 && hits.length===0);
+    solResults.hidden=false;
+    empty.classList.toggle('show',false);
   } else {
-    solResults.hidden=true;
+    solResults.hidden=true; if(resEmpty) resEmpty.hidden=true;
     empty.classList.toggle('show',visible===0);
   }
 }
 q.addEventListener('input',apply);
 chips.forEach(function(ch){ ch.addEventListener('click',function(){ chips.forEach(function(c){c.classList.remove('active')}); ch.classList.add('active'); currentFilter=ch.getAttribute('data-filter')||''; apply(); }); });
 
+/* 移动端筛选行：右侧渐隐 + 箭头提示可横向滑动，滑到末尾自动消失 */
+var filtersEl=document.getElementById('filters'), filtersMore=document.getElementById('filtersMore');
+function updateFiltersMore(){
+  if(!filtersEl || !filtersMore) return;
+  var max=filtersEl.scrollWidth-filtersEl.clientWidth;
+  var show=max>4 && filtersEl.scrollLeft<max-4;
+  filtersMore.classList.toggle('hide',!show);
+}
+if(filtersEl) filtersEl.addEventListener('scroll',updateFiltersMore,{passive:true});
+window.addEventListener('resize',updateFiltersMore);
+updateFiltersMore();
+
 /* ================= 按设备反查 ================= */
-var DEVICES=["MIC-20","MS588","AD711","BT52","BT168","AD1000-4","AD1000-8","AD2122","AD2504","AD2536","TMA-60","AMP50","RB01","AB14","AD8319","DDC1203"];
+var DEVICES=["MIC-20","MS588","AD711","BT52","BT168","AD1000-4","AD1000-8","AD1000-88","AD2122","AD2504","AD2536","TMA-60","AMP50","RB01","AB14","AD8319","DDC1203"];
 var devGrid=document.getElementById('devGrid');
-DEVICES.forEach(function(d){
-  var dl=d.toLowerCase(), n=0;
-  SOL_INDEX.forEach(function(e){ if(e.text.indexOf(dl)!==-1) n++; });
-  if(!n) return;
-  var b=document.createElement('button'); b.type='button'; b.className='dev-chip';
-  b.innerHTML=esc(d)+' <span>· '+n+' 个方案</span>';
+var DEV_COUNTS=DEVICES.map(function(d){ var n=0; SOL_INDEX.forEach(function(e){ if(matchesDevice(e.plain,d)) n++; }); return {d:d,n:n}; }).filter(function(x){return x.n>0;}).sort(function(a,b){return b.n-a.n || a.d.localeCompare(b.d);});
+DEV_COUNTS.forEach(function(x){
+  var d=x.d, n=x.n;
+  var b=document.createElement('button'); b.type='button'; b.className='dev-chip '+(n>=40?'tier-high':(n>=18?'tier-mid':'tier-low'));
+  b.setAttribute('aria-label',d+'，'+n+' 个方案');
+  b.innerHTML=esc(d)+' <span class="dev-n">· '+n+' 个方案</span>';
   b.addEventListener('click',function(){
     chips.forEach(function(c2){ c2.classList.toggle('active',(c2.getAttribute('data-filter')||'')===''); });
     currentFilter=''; q.value=d; apply();
