@@ -41,7 +41,7 @@ h1 .dot{color:var(--accent)}
 .nav-item .fchip.active{color:var(--accent);font-weight:700}
 .nav-item .fchip.active::after{content:"";position:absolute;left:12px;right:12px;bottom:8px;height:2px;background:var(--accent);border-radius:2px}
 .nav-drop{position:absolute;top:calc(100% + 6px);left:50%;transform:translate(-50%,6px);min-width:250px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 16px 40px rgba(0,0,0,.16);padding:8px;opacity:0;visibility:hidden;transition:opacity .15s ease,transform .15s ease,visibility .15s;z-index:35}
-.nav-item:hover .nav-drop,.nav-item:focus-within .nav-drop,.nav-item.open .nav-drop{opacity:1;visibility:visible;transform:translate(-50%,0)}
+.nav-item.open .nav-drop{opacity:1;visibility:visible;transform:translate(-50%,0)}
 .nav-drop h4{margin:6px 10px 6px;font-size:14px;font-weight:700;letter-spacing:0;color:var(--muted)}
 .nav-drop a{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;text-align:left;background:transparent;border:0;border-radius:8px;padding:9px 10px;font-size:14px;color:var(--ink);cursor:pointer;text-decoration:none}
 .nav-drop a:hover{background:var(--accent-soft);color:var(--accent-deep)}
@@ -1015,6 +1015,64 @@ route();
     var a=e.target.closest('.nav-drop a'); if(!a) return;
     e.preventDefault();
     lastTriggerId=a.getAttribute('data-cat'); goDetail(a.getAttribute('data-cat'));
+  });
+  /* ============ 下拉卡：JS 独占控制（修复两个卡同时打开重叠） ============
+     旧规则 :hover + :focus-within 是两个独立触发器：点分组按钮后焦点留在按钮上，
+     :focus-within 一直托着它的卡，再悬停另一组就同时打开两张卡。
+     现在只有 .open 能显示卡，所有打开/关闭都走下面这段 JS，保证同一时间最多一张卡。 */
+  var navItems=Array.prototype.slice.call(menu.querySelectorAll('.nav-item')).filter(function(it){ return it.querySelector('.nav-drop'); });
+  var closeTimer=null;
+  function setExpanded(item,open){ var b=item.querySelector('.fchip'); if(b) b.setAttribute('aria-expanded',open?'true':'false'); }
+  function closeItem(item){ item.classList.remove('open'); setExpanded(item,false); }
+  function closeAllNav(except){ navItems.forEach(function(it){ if(it!==except) closeItem(it); }); }
+  function openItem(item){
+    if(closeTimer){ clearTimeout(closeTimer); closeTimer=null; }
+    closeAllNav(item);
+    item.classList.add('open'); setExpanded(item,true);
+  }
+  function scheduleClose(item){
+    if(closeTimer) clearTimeout(closeTimer);
+    closeTimer=setTimeout(function(){ closeTimer=null; closeItem(item); },150);
+  }
+  navItems.forEach(function(item){
+    var btn=item.querySelector('.fchip');
+    if(btn) btn.setAttribute('aria-expanded','false');
+    item.addEventListener('pointerenter',function(e){
+      if(e.pointerType && e.pointerType!=='mouse') return;
+      if(window.innerWidth<=760) return;
+      openItem(item);
+    });
+    item.addEventListener('pointerleave',function(e){
+      if(e.pointerType && e.pointerType!=='mouse') return;
+      if(window.innerWidth<=760) return;
+      scheduleClose(item);
+    });
+    item.addEventListener('focusin',function(){ openItem(item); });
+    item.addEventListener('focusout',function(e){
+      if(e.relatedTarget && item.contains(e.relatedTarget)) return;
+      scheduleClose(item);
+    });
+    if(btn){
+      /* 触屏：第一次点开卡（不触发筛选），第二次点才筛选并收起。桌面鼠标点按不受影响。
+         注意：只在 pointerdown 上 preventDefault 拦不住触屏的 click（Chrome 的点按
+         click 由 touch 流程产生），必须在 touchstart 上 preventDefault 才行。 */
+      btn.addEventListener('touchstart',function(e){
+        if(window.innerWidth<=760) return;
+        if(!item.classList.contains('open')){ e.preventDefault(); openItem(item); }
+      },{passive:false});
+    }
+  });
+  /* 点分组按钮：旧的筛选逻辑照常执行，卡随后收起 */
+  menu.addEventListener('click',function(e){
+    var chip=e.target.closest('.nav-item .fchip');
+    if(!chip) return;
+    var it=chip.closest('.nav-item'); if(it) closeItem(it);
+  });
+  document.addEventListener('click',function(e){
+    if(!e.target.closest || !e.target.closest('.nav-item')) closeAllNav(null);
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape') closeAllNav(null);
   });
   var btn=document.getElementById('navSearchBtn'), panel=document.getElementById('searchPanel'), qEl=document.getElementById('q');
   function closePanel(){ panel.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
